@@ -1,4 +1,6 @@
+# ─────────────────────────────
 # Logs
+# ─────────────────────────────
 logs
 *.log
 npm-debug.log*
@@ -7,18 +9,52 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# ─────────────────────────────
+# Dependencies
+# ─────────────────────────────
+node_modules/
+
+# ─────────────────────────────
+# Build outputs (Vite)
+# ─────────────────────────────
+dist/
+dist-ssr/
 *.local
 
-# Editor directories and files
+# ─────────────────────────────
+# Environment files
+# ─────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# ─────────────────────────────
+# Editor settings
+# ─────────────────────────────
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# ─────────────────────────────
+# Media (büyük dosyalar)
+# ─────────────────────────────
+# Hero veya tanıtım videolarını repoya dahil etme
+public/**/*.mp4
+public/**/*.mov
+public/**/*.avi
+*.mp4
+*.mov
+*.avi
+
+# ─────────────────────────────
+# Cache & lock files (opsiyonel)
+# ─────────────────────────────
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
