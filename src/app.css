@@ -349,3 +349,76 @@ button{
 @media (max-width: 860px){
   .refs-inner{ flex-direction:column; align-items:flex-start; }
 }
+
+/* === Full-height section skeleton === */
+.vh-section{
+  min-height: calc(100vh - var(--header-h));
+  display: grid;
+  align-items: center;            /* içeriği dikey merkezler */
+  padding-block: clamp(28px, 5vh, 64px);
+}
+
+/* === WhatWeDo grid === */
+.wwd{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(16px, 3vw, 28px);
+  align-items: center;
+}
+
+/* Metin sütunu: başlığı daha dengeli büyütelim */
+.wwd-title{
+  font-family: "Playfair Display", serif;
+  font-size: clamp(26px, 3.6vw, 40px);
+  line-height: 1.15;
+  margin: 8px 0 10px;
+}
+
+/* Küçük bilgi çipleri */
+.wwd-stats{
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.wwd-chip{
+  border: 1px solid rgba(255,255,255,.08);
+  padding: 10px 12px;
+  border-radius: 12px;
+  min-width: 170px;
+}
+
+/* Media kutusu videoyu taşırmadan hizalar */
+.wwd-media{
+  position: relative;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  overflow: hidden;
+  height: clamp(320px, 68vh, 720px); /* ekranın çoğunu kaplar ama taşmaz */
+  background: #0f0f0f;
+}
+.wwd-video{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;              /* taşma olmadan kırp */
+  display: block;
+  filter: saturate(1.02) contrast(1.02);
+}
+
+/* Cam efektli başlık plakası */
+.wwd-glass{
+  position: absolute;
+  left: 12px; right: 12px; bottom: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(6px);
+  background: rgba(17,17,17,.55);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+
+/* Responsive: alt alta diz ve media’yı aşağı al */
+@media (max-width: 980px){
+  .wwd{ grid-template-columns: 1fr; }
+  .wwd-media{ order: 2; height: clamp(260px, 46vh, 520px); }
+}
