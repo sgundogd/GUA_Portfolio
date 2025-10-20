@@ -35,7 +35,7 @@ function Hero() {
         <h1>
           Crafted for <span className="accent">Signature</span> Spaces
         </h1>
-        <p>Bespoke furniture engineered for residences and hospitality.</p>
+        <p>Bespoke furniture engineered for residential and hospitality projects.</p>
 
         <div className="hero-cta">
           <Link className="btn btn-gold" to="/contact">Request Lookbook</Link>
@@ -72,32 +72,31 @@ function useReveal() {
   return { ref, show };
 }
 
-/* ------------------------ WHAT WE DO (NET) -------------------- */
 /* ------------------------ WHAT WE DO (FULL-HEIGHT) -------------------- */
 function WhatWeDo() {
   return (
     <section className="section vh-section">
       <div className="container wwd">
-        {/* Sol: Metin */}
+        {/* Left: Copy */}
         <div className="wwd-copy">
-          <span className="eyebrow">What we do</span>
+          <span className="eyebrow">WHAT WE DO</span>
           <h2 className="wwd-title">
-            We design, build and install bespoke furniture for homes and hospitality.
+            We design, build, and install bespoke furniture for homes and hospitality.
           </h2>
 
           <h4 style={{ margin: "14px 0 6px" }}>What you get</h4>
           <ul className="list" style={{ margin: 0 }}>
-            <li>Design & shop drawings — ölçüleriniz ve bütçenize göre.</li>
-            <li>Material sampling — finish kartları, taş/metal/deri örnekleri.</li>
-            <li>Production — masif ağaç, pirinç/çelik, taş; otel standardı kalite.</li>
-            <li>Logistics & white-glove install — paketleme, teslimat ve kurulum.</li>
+            <li>Design & shop drawings — tailored to your dimensions and budget.</li>
+            <li>Material sampling — finish cards; stone/metal/leather swatches.</li>
+            <li>Production — solid hardwood, brass/steel, stone; hospitality-grade quality.</li>
+            <li>Logistics & white-glove install — export packing, delivery, on-site assembly.</li>
           </ul>
 
           <h4 style={{ margin: "16px 0 6px" }}>Why GUA</h4>
           <ul className="list" style={{ marginTop: 0 }}>
-            <li>Tek muhatap: brief’ten hand-over’a kadar net süreç.</li>
-            <li>Hospitality-grade dayanım, uzun ömür.</li>
-            <li>Finishes & dimensions tamamen size göre.</li>
+            <li>Single partner from brief to hand-over — one point of contact, clear process.</li>
+            <li>Built to last — hospitality-grade durability.</li>
+            <li>Made to your finishes & dimensions — fully tailored to your scheme.</li>
           </ul>
 
           <div className="wwd-stats">
@@ -112,18 +111,18 @@ function WhatWeDo() {
           </div>
 
           <div style={{ display: "flex", gap: 10, marginTop: 14 }}>
-            <Link className="btn btn-gold" to="/contact">Start a Brief</Link>
+            <Link className="btn btn-gold" to="/contact">Start a Project Brief</Link>
             <Link className="btn btn-ghost" to="/projects">See Projects</Link>
           </div>
         </div>
 
-        {/* Sağ: Media */}
+        {/* Right: Media */}
         <div className="wwd-media">
           <video className="wwd-video" autoPlay muted loop playsInline poster="/hero.png">
             <source src="/hero/9.mp4" type="video/mp4" />
           </video>
 
-          {/* Cam efektli etiket */}
+          {/* Glass label */}
           <div className="wwd-glass">
             <span style={{ fontWeight: 600 }}>GUA Studio</span>
             <span className="muted" style={{ fontSize: 14 }}>Design · Prototyping · Brass · Wood</span>
@@ -133,7 +132,6 @@ function WhatWeDo() {
     </section>
   );
 }
-
 
 function FrameVideo() {
   return (
@@ -193,7 +191,7 @@ function OurServices() {
       `}</style>
 
       <SectionTitle
-        eyebrow="Our Services"
+        eyebrow="OUR SERVICES"
         title="From concept to installation"
         desc="Clear deliverables at each stage so you always know what you’ll get."
       />
@@ -204,12 +202,12 @@ function OurServices() {
             {
               icon: DesignIcon,
               title: "Concept & Detailing",
-              desc: "Moodboards, 2D/3D, shop drawings, value engineering.",
+              desc: "Moodboards, 2D/3D development, shop drawings, value engineering.",
             },
             {
               icon: SampleIcon,
               title: "Sampling Lab",
-              desc: "Finish cards, stone & brass samples, upholstery swatches.",
+              desc: "Finish cards; stone, brass and metal samples; upholstery swatches.",
             },
           ]}
         />
@@ -219,12 +217,12 @@ function OurServices() {
             {
               icon: BuildIcon,
               title: "Production",
-              desc: "Solid wood carpentry, metalwork, stone — hospitality grade QC.",
+              desc: "Solid wood joinery, metalwork and stone — hospitality-grade QC.",
             },
             {
               icon: InstallIcon,
               title: "Logistics & Install",
-              desc: "Export packing, delivery, white-glove assembly and hand-over.",
+              desc: "Export packing, freight, white-glove assembly and hand-over.",
             },
           ]}
         />
@@ -279,9 +277,9 @@ function Products() {
   return (
     <section id="products" className="section" style={{ minHeight: "100vh", display: "grid", alignContent: "center" }}>
       <SectionTitle
-        eyebrow="Collection"
+        eyebrow="COLLECTION"
         title="Signature Products"
-        desc="Best-sellers tailored to your finishes and dimensions."
+        desc="Bestsellers tailored to your finishes and dimensions."
       />
       <div className="grid container" style={{ marginTop: 6 }}>
         {productItems.map((p, i) => (
@@ -312,7 +310,7 @@ function Projects() {
   return (
     <section id="projects" className="section section-dark" style={{ minHeight: "100vh", display: "grid", alignContent: "center" }}>
       <SectionTitle
-        eyebrow="Projects"
+        eyebrow="PROJECTS"
         title="Spaces with a Signature"
         desc="Selected residential and hospitality installs."
       />
@@ -335,15 +333,60 @@ function Projects() {
 /* ------------------------ CONTACT CTA ------------------------- */
 function Contact() {
   return (
-    <section id="contact" className="section" style={{ minHeight: "100vh", display: "grid", alignContent: "center" }}>
-      <div className="container contact">
-        <div>
-          <h2>Let’s craft your signature piece</h2>
-          <p className="muted">Share your moodboard, dimensions, and preferred finishes.</p>
+    <section
+      id="contact"
+      className="section section-dark"
+      style={{
+        paddingBlock: "60px",
+        background: "#0b0b0b",
+        borderTop: "1px solid rgba(255,255,255,0.05)",
+      }}
+    >
+      <div
+        className="container contact"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "20px",
+        }}
+      >
+        {/* Left copy */}
+        <div style={{ maxWidth: 520 }}>
+          <h2 style={{ fontSize: "1.9rem", marginBottom: 6 }}>
+            Let’s craft your signature piece
+          </h2>
+          <p className="muted" style={{ fontSize: 15 }}>
+            Share your moodboard, dimensions, and preferred finishes.
+          </p>
         </div>
-        <div className="contact-actions">
-          <a className="btn btn-gold" href="mailto:hello@guadesign.com">Email Us</a>
-          <a className="btn btn-ghost" href="https://wa.me/905555555555" target="_blank" rel="noreferrer">WhatsApp</a>
+
+        {/* Right actions */}
+        <div
+          className="contact-actions"
+          style={{
+            display: "flex",
+            gap: 12,
+            alignItems: "center",
+          }}
+        >
+          <a
+            className="btn btn-gold"
+            href="mailto:hello@guadesign.com"
+            style={{ fontWeight: 500 }}
+          >
+            Email Us
+          </a>
+          <a
+            className="btn btn-ghost"
+            href="https://wa.me/905555555555"
+            target="_blank"
+            rel="noreferrer"
+            style={{ fontWeight: 500 }}
+          >
+            WhatsApp
+          </a>
         </div>
       </div>
     </section>
