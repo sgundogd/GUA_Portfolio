@@ -5,15 +5,7 @@ import "../app.css";
 /* ------------------------ SMALL FEATURE CARD ----------------- */
 function Feature({ icon: Icon, title, desc }) {
   return (
-    <div
-      className="card card-dark"
-      style={{
-        borderRadius: 14,
-        padding: 12,
-        border: "1px solid rgba(255,255,255,.08)",
-        background: "#111",
-      }}
-    >
+    <div className="card card-dark" style={{ borderRadius: 14, padding: 12, border: "1px solid rgba(255,255,255,.08)", background: "#111" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
         <Icon />
         <strong>{title}</strong>
@@ -45,7 +37,6 @@ function Hero() {
     </section>
   );
 }
-
 /* ------------------------ UTILITIES --------------------------- */
 function SectionTitle({ eyebrow, title, desc, align="center" }) {
   return (
@@ -62,10 +53,7 @@ function useReveal() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const io = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setShow(true); },
-      { threshold: 0.2 }
-    );
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) setShow(true); }, { threshold: 0.2 });
     io.observe(el);
     return () => io.disconnect();
   }, []);
@@ -80,23 +68,21 @@ function WhatWeDo() {
         {/* Left: Copy */}
         <div className="wwd-copy">
           <span className="eyebrow">WHAT WE DO</span>
-          <h2 className="wwd-title">
-            We design, build, and install bespoke furniture for homes and hospitality.
-          </h2>
+          <h2 className="wwd-title">We design, build and install bespoke furniture.</h2>
 
           <h4 style={{ margin: "14px 0 6px" }}>What you get</h4>
           <ul className="list" style={{ margin: 0 }}>
-            <li>Design & shop drawings — tailored to your dimensions and budget.</li>
-            <li>Material sampling — finish cards; stone/metal/leather swatches.</li>
-            <li>Production — solid hardwood, brass/steel, stone; hospitality-grade quality.</li>
-            <li>Logistics & white-glove install — export packing, delivery, on-site assembly.</li>
+            <li>Design & shop drawings tailored to scope, dimensions and budget.</li>
+            <li>Prototyping and sampling when needed to lock look and fit.</li>
+            <li>Production with rigorous quality control and reliable lead times.</li>
+            <li>Delivery and on-site installation with a single accountable team.</li>
           </ul>
 
           <h4 style={{ margin: "16px 0 6px" }}>Why GUA</h4>
           <ul className="list" style={{ marginTop: 0 }}>
-            <li>Single partner from brief to hand-over — one point of contact, clear process.</li>
-            <li>Built to last — hospitality-grade durability.</li>
-            <li>Made to your finishes & dimensions — fully tailored to your scheme.</li>
+            <li>One partner from first brief to hand-over — clear ownership.</li>
+            <li>Predictable timelines and costs, suitable for hospitality standards.</li>
+            <li>Made to fit your space, use case and brand language.</li>
           </ul>
 
           <div className="wwd-stats">
@@ -122,61 +108,13 @@ function WhatWeDo() {
             <source src="/hero/9.mp4" type="video/mp4" />
           </video>
 
-          {/* Glass label */}
           <div className="wwd-glass">
             <span style={{ fontWeight: 600 }}>GUA Studio</span>
-            <span className="muted" style={{ fontSize: 14 }}>Design · Prototyping · Brass · Wood</span>
+            <span className="muted" style={{ fontSize: 14 }}>Design · Prototyping · Build · Install</span>
           </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function FrameVideo() {
-  return (
-    <div
-      style={{
-        position: "relative",
-        border: "1px solid rgba(255,255,255,.08)",
-        borderRadius: 16,
-        overflow: "hidden",
-        background: "#0f0f0f",
-        minHeight: 380,
-      }}
-    >
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        poster="/hero.png"
-        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", filter: "saturate(1.02) contrast(1.02)" }}
-      >
-        <source src="/hero/9.mp4" type="video/mp4" />
-      </video>
-
-      <div
-        style={{
-          position: "absolute",
-          left: 12,
-          bottom: 12,
-          right: 12,
-          padding: "10px 12px",
-          borderRadius: 12,
-          border: "1px solid rgba(255,255,255,.08)",
-          backdropFilter: "blur(6px)",
-          background: "rgba(17,17,17,.55)",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: 12,
-        }}
-      >
-        <span style={{ fontWeight: 600 }}>GUA Studio</span>
-        <span className="muted" style={{ fontSize: 14 }}>Design · Prototyping · Brass · Wood</span>
-      </div>
-    </div>
   );
 }
 
@@ -192,38 +130,22 @@ function OurServices() {
 
       <SectionTitle
         eyebrow="OUR SERVICES"
-        title="From concept to installation"
-        desc="Clear deliverables at each stage so you always know what you’ll get."
+        title="From concept to hand-over"
+        desc="Clear deliverables at each stage — you always know what’s next."
       />
 
       <div className="container" style={{ marginTop: 4 }}>
         <ServiceRow
           items={[
-            {
-              icon: DesignIcon,
-              title: "Concept & Detailing",
-              desc: "Moodboards, 2D/3D development, shop drawings, value engineering.",
-            },
-            {
-              icon: SampleIcon,
-              title: "Sampling Lab",
-              desc: "Finish cards; stone, brass and metal samples; upholstery swatches.",
-            },
+            { icon: DesignIcon,  title: "Concept & Detailing", desc: "Brief, moodboards, 2D/3D development, shop drawings, value engineering." },
+            { icon: SampleIcon,  title: "Prototyping",        desc: "Mock-ups and sampling to validate proportion, comfort and finish." },
           ]}
         />
         <ServiceRow
           delay={120}
           items={[
-            {
-              icon: BuildIcon,
-              title: "Production",
-              desc: "Solid wood joinery, metalwork and stone — hospitality-grade QC.",
-            },
-            {
-              icon: InstallIcon,
-              title: "Logistics & Install",
-              desc: "Export packing, freight, white-glove assembly and hand-over.",
-            },
+            { icon: BuildIcon,   title: "Production",         desc: "Joinery, finishing, upholstery and metalwork with hospitality-grade QC." },
+            { icon: InstallIcon, title: "Delivery & Install",  desc: "Export packing, logistics, on-site installation and hand-over." },
           ]}
         />
       </div>
@@ -267,26 +189,20 @@ function ServiceTile({ icon: Icon, title, desc, delay = 0 }) {
 
 /* ------------------------ PRODUCTS ---------------------------- */
 const productItems = [
-  { title: "Alaaddin Lounge Chair", tag: "Walnut · Nubuck", img: "/alaaddin.png" },
-  { title: "Mossi Side Table", tag: "Onyx · Brass", img: "/prod-luma.jpg" },
-  { title: "Pablo Chair", tag: "Marble · Brass", img: "/pablo.png" },
-  { title: "Oxa Dining", tag: "Oak · Leather", img: "/oxa-3 copy.jpg" },
+  { title: "Alaaddin Lounge Chair", tag: "Customisable dimensions & finishes", img: "/alaaddin.png" },
+  { title: "Mossi Side Table",      tag: "Made to order",                      img: "/prod-luma.jpg" },
+  { title: "Pablo Chair",           tag: "Option for COM/finish",              img: "/pablo.png" },
+  { title: "Oxa Dining",            tag: "Sizes on request",                   img: "/oxa-3 copy.jpg" },
 ];
 
 function Products() {
   return (
     <section id="products" className="section" style={{ minHeight: "100vh", display: "grid", alignContent: "center" }}>
-      <SectionTitle
-        eyebrow="COLLECTION"
-        title="Signature Products"
-        desc="Bestsellers tailored to your finishes and dimensions."
-      />
+      <SectionTitle eyebrow="COLLECTION" title="Selected Products" desc="Adaptable to your dimensions and finish schedule." />
       <div className="grid container" style={{ marginTop: 6 }}>
         {productItems.map((p, i) => (
           <Link key={i} className="card" to="/contact">
-            <div className="card-media">
-              <img src={p.img} alt={p.title} />
-            </div>
+            <div className="card-media"><img src={p.img} alt={p.title} /></div>
             <div className="card-body">
               <h3>{p.title}</h3>
               <span className="muted">{p.tag}</span>
@@ -302,27 +218,19 @@ function Products() {
 const projectItems = [
   { title: "Palm Jumeirah Residence", img: "/otel-projesi-model-1-min.jpg" },
   { title: "Downtown Dubai Penthouse", img: "/otel-dekorasyon-fikirleri-10.jpg" },
-  { title: "Bodrum Seafront Villa", img: "/Sheraton-Batumi-Hotel-13-min.jpg" },
-  { title: "Modern Istanbul Flat", img: "/otel-dekor-tadilat-11.jpg" },
+  { title: "Bodrum Seafront Villa",    img: "/Sheraton-Batumi-Hotel-13-min.jpg" },
+  { title: "Modern Istanbul Flat",     img: "/otel-dekor-tadilat-11.jpg" },
 ];
 
 function Projects() {
   return (
     <section id="projects" className="section section-dark" style={{ minHeight: "100vh", display: "grid", alignContent: "center" }}>
-      <SectionTitle
-        eyebrow="PROJECTS"
-        title="Spaces with a Signature"
-        desc="Selected residential and hospitality installs."
-      />
+      <SectionTitle eyebrow="PROJECTS" title="Recent Work" desc="Selected residential and hospitality installs." />
       <div className="grid container" style={{ marginTop: 6 }}>
         {projectItems.map((p, i) => (
           <div key={i} className="card card-dark">
-            <div className="card-media">
-              <img src={p.img} alt={p.title} />
-            </div>
-            <div className="card-body">
-              <h3>{p.title}</h3>
-            </div>
+            <div className="card-media"><img src={p.img} alt={p.title} /></div>
+            <div className="card-body"><h3>{p.title}</h3></div>
           </div>
         ))}
       </div>
@@ -333,60 +241,15 @@ function Projects() {
 /* ------------------------ CONTACT CTA ------------------------- */
 function Contact() {
   return (
-    <section
-      id="contact"
-      className="section section-dark"
-      style={{
-        paddingBlock: "60px",
-        background: "#0b0b0b",
-        borderTop: "1px solid rgba(255,255,255,0.05)",
-      }}
-    >
-      <div
-        className="container contact"
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexWrap: "wrap",
-          gap: "20px",
-        }}
-      >
-        {/* Left copy */}
+    <section id="contact" className="section section-dark" style={{ paddingBlock: "60px", background: "#0b0b0b", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+      <div className="container contact" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "20px" }}>
         <div style={{ maxWidth: 520 }}>
-          <h2 style={{ fontSize: "1.9rem", marginBottom: 6 }}>
-            Let’s craft your signature piece
-          </h2>
-          <p className="muted" style={{ fontSize: 15 }}>
-            Share your moodboard, dimensions, and preferred finishes.
-          </p>
+          <h2 style={{ fontSize: "1.9rem", marginBottom: 6 }}>Tell us about your project</h2>
+          <p className="muted" style={{ fontSize: 15 }}>Share a brief or drawings. We’ll reply with options, costs and a timeline.</p>
         </div>
-
-        {/* Right actions */}
-        <div
-          className="contact-actions"
-          style={{
-            display: "flex",
-            gap: 12,
-            alignItems: "center",
-          }}
-        >
-          <a
-            className="btn btn-gold"
-            href="mailto:hello@guadesign.com"
-            style={{ fontWeight: 500 }}
-          >
-            Email Us
-          </a>
-          <a
-            className="btn btn-ghost"
-            href="https://wa.me/905555555555"
-            target="_blank"
-            rel="noreferrer"
-            style={{ fontWeight: 500 }}
-          >
-            WhatsApp
-          </a>
+        <div className="contact-actions" style={{ display: "flex", gap: 12, alignItems: "center" }}>
+          <a className="btn btn-gold" href="mailto:hello@guadesign.com" style={{ fontWeight: 500 }}>Email</a>
+          <a className="btn btn-ghost" href="https://wa.me/905555555555" target="_blank" rel="noreferrer" style={{ fontWeight: 500 }}>WhatsApp</a>
         </div>
       </div>
     </section>
@@ -394,38 +257,10 @@ function Contact() {
 }
 
 /* ------------------------ ICONS ------------------------------- */
-function DesignIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style={{ opacity: .9 }}>
-      <path d="M4 19.5V8a2 2 0 0 1 2-2h6.5M8 16h8M8 12h10M15 3l6 6" stroke="currentColor" strokeWidth="1.4"/>
-      <path d="M15 3v6h6" stroke="currentColor" strokeWidth="1.4" />
-    </svg>
-  );
-}
-function SampleIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style={{ opacity: .9 }}>
-      <rect x="3" y="5" width="8" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.4"/>
-      <rect x="13" y="11" width="8" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.4"/>
-      <path d="M11 9h2M13 9V7" stroke="currentColor" strokeWidth="1.4"/>
-    </svg>
-  );
-}
-function InstallIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style={{ opacity: .9 }}>
-      <path d="M4 20v-4a2 2 0 0 1 2-2h2l3-3 3 3h2a2 2 0 0 1 2 2v4" stroke="currentColor" strokeWidth="1.4"/>
-      <circle cx="12" cy="7" r="2.5" stroke="currentColor" strokeWidth="1.4"/>
-    </svg>
-  );
-}
-function BuildIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style={{ opacity:.9 }}>
-      <path d="M3 21h18M6 17l6-6 4 4 4-8-8 4" stroke="currentColor" strokeWidth="1.4" />
-    </svg>
-  );
-}
+function DesignIcon() { return (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" style={{ opacity:.9 }}><path d="M4 19.5V8a2 2 0 0 1 2-2h6.5M8 16h8M8 12h10M15 3l6 6" stroke="currentColor" strokeWidth="1.4"/><path d="M15 3v6h6" stroke="currentColor" strokeWidth="1.4"/></svg>); }
+function SampleIcon() { return (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" style={{ opacity:.9 }}><rect x="3" y="5" width="8" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.4"/><rect x="13" y="11" width="8" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.4"/><path d="M11 9h2M13 9V7" stroke="currentColor" strokeWidth="1.4"/></svg>); }
+function InstallIcon() { return (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" style={{ opacity:.9 }}><path d="M4 20v-4a2 2 0 0 1 2-2h2l3-3 3 3h2a2 2 0 0 1 2 2v4" stroke="currentColor" strokeWidth="1.4"/><circle cx="12" cy="7" r="2.5" stroke="currentColor" strokeWidth="1.4"/></svg>); }
+function BuildIcon()   { return (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" style={{ opacity:.9 }}><path d="M3 21h18M6 17l6-6 4 4 4-8-8 4" stroke="currentColor" strokeWidth="1.4"/></svg>); }
 
 /* ------------------------ PAGE EXPORT ------------------------- */
 export default function Home() {
