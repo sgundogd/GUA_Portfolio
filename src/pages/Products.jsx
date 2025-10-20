@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../app.css";
 
@@ -140,8 +140,7 @@ export default function Products() {
           Signature Products
         </h1>
         <p className="muted" style={{ maxWidth: 720, margin: "0 auto" }}>
-          Tailored to your dimensions and finishes. Explore by category or material; request specs to
-          start your brief.
+          Tailored to your dimensions and finishes. Browse by category or filter by material; open specs to start your brief.
         </p>
       </div>
 
@@ -245,7 +244,7 @@ export default function Products() {
         )}
       </section>
 
-      {/* Spec Drawer */}
+      {/* Spec Modal (centered) */}
       {openSpec && (
         <SpecDrawer
           product={ALL_PRODUCTS.find((x) => x.slug === openSpec)}
@@ -268,12 +267,20 @@ export default function Products() {
   );
 }
 
-/* --- Basit bir spec çekmecesi (modal) --- */
+/* --- SPEC MODAL (centered) --- */
 function SpecDrawer({ product, onClose }) {
   if (!product) return null;
+
+  // Body scroll kilidi
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = prev; };
+  }, []);
+
   return (
-    <div className="drawer-overlay" onClick={onClose}>
-      <div className="drawer" onClick={(e) => e.stopPropagation()}>
+    <div className="drawer-overlay drawer-overlay--center" onClick={onClose}>
+      <div className="drawer drawer--center" onClick={(e) => e.stopPropagation()}>
         <div className="drawer-head">
           <h3 style={{ margin: 0 }}>{product.title}</h3>
           <button className="icon-btn" onClick={onClose} aria-label="Close">
@@ -287,21 +294,11 @@ function SpecDrawer({ product, onClose }) {
           </div>
           <div className="drawer-spec">
             <ul className="spec-list">
-              <li>
-                <strong>Category:</strong> {product.category}
-              </li>
-              <li>
-                <strong>Finishes:</strong> {product.finishes.join(", ")}
-              </li>
-              <li>
-                <strong>Construction:</strong> Solid wood frame, engineered joints, brass hardware
-              </li>
-              <li>
-                <strong>Lead time:</strong> 6–8 weeks
-              </li>
-              <li>
-                <strong>Shipping:</strong> GCC & Europe, white-glove available
-              </li>
+              <li><strong>Category:</strong> {product.category}</li>
+              <li><strong>Finishes:</strong> {product.finishes.join(", ")}</li>
+              <li><strong>Construction:</strong> Solid wood frame, engineered joints, brass hardware</li>
+              <li><strong>Lead time:</strong> 6–8 weeks</li>
+              <li><strong>Shipping:</strong> GCC & Europe, white-glove available</li>
             </ul>
 
             <div className="drawer-actions">
