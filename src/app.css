@@ -298,63 +298,68 @@ button{
 @media (max-width:920px){ .drawer-body{ grid-template-columns:1fr; } }
 
 /* =========================
-   REFERENCES STRIP (logos)
+   REFERENCES (Projects sayfası)
 ========================= */
+
+/* (İstersen arka plan bandı için kullan) */
 .refs{
   background: linear-gradient(180deg, #121212 0%, #0f0f0f 100%);
   border-block: 1px solid rgba(255,255,255,.06);
 }
 
-.refs-inner{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:24px;
-  padding:22px 0;
+/* Label | Logos (center) | CTA */
+.project-refs{
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  column-gap: 16px;
+  row-gap: 10px;
+  margin: 12px auto 22px;
 }
+.refs-label{ white-space: nowrap; }
 
-/* Logo rayı: tek satır, taşarsa yatay kaydırılabilir */
+/* logo rayı */
 .refs-logos{
   display:flex;
   align-items:center;
   gap:28px;
-  flex-wrap:nowrap;           /* tek satır */
-  overflow-x:auto;            /* fazla olursa kaydır */
+  flex-wrap:nowrap;
+  overflow-x:auto;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;      /* Firefox scrollbar gizle */
-  max-width: 100%;
+  scrollbar-width:none;
+  max-width:100%;
+  justify-content:center;         /* ortalı */
 }
-.refs-logos::-webkit-scrollbar{ display:none; } /* WebKit scrollbar gizle */
+.refs-logos::-webkit-scrollbar{ display:none; }
+.refs-logos--center{ justify-content:center; }
 
-/* Her bir logo kutusu sabit yükseklik, oran koru */
+.project-refs-cta{ justify-self:end; }
+
+/* tekil logolar */
 .ref-logo{
   flex:0 0 auto;
-  height:32px;                /* band yüksekliği */
+  height:32px;
   opacity:.85;
   filter: grayscale(100%) contrast(1.2) brightness(1.1);
   transition: opacity .2s ease, transform .2s ease;
 }
 .ref-logo img{
-  height:100%;
-  width:auto;
-  display:block;
-  object-fit:contain;         /* taşmayı önle */
+  height:100%; width:auto; display:block; object-fit:contain;
 }
+.ref-logo:hover{ opacity:1; transform: translateY(-1px); }
 
-/* İstersen hover’da çok hafif etki */
-.ref-logo:hover{
-  opacity:1;
-  transform: translateY(-1px);
-}
+/* Mobilde stack */
 @media (max-width: 860px){
-  .refs-inner{ flex-direction:column; align-items:flex-start; }
+  .project-refs{ grid-template-columns:1fr; justify-items:flex-start; }
+  .refs-logos{ justify-content:flex-start; margin:0; }
+  .project-refs-cta{ justify-self:flex-start; }
 }
 
 /* === Full-height section skeleton === */
 .vh-section{
   min-height: calc(100vh - var(--header-h));
   display: grid;
-  align-items: center;            /* içeriği dikey merkezler */
+  align-items: center;
   padding-block: clamp(28px, 5vh, 64px);
 }
 
@@ -366,7 +371,7 @@ button{
   align-items: center;
 }
 
-/* Metin sütunu: başlığı daha dengeli büyütelim */
+/* Metin sütunu */
 .wwd-title{
   font-family: "Playfair Display", serif;
   font-size: clamp(26px, 3.6vw, 40px);
@@ -394,13 +399,13 @@ button{
   border: 1px solid rgba(255,255,255,.08);
   border-radius: 16px;
   overflow: hidden;
-  height: clamp(320px, 68vh, 720px); /* ekranın çoğunu kaplar ama taşmaz */
+  height: clamp(320px, 68vh, 720px);
   background: #0f0f0f;
 }
 .wwd-video{
   width: 100%;
   height: 100%;
-  object-fit: cover;              /* taşma olmadan kırp */
+  object-fit: cover;
   display: block;
   filter: saturate(1.02) contrast(1.02);
 }
