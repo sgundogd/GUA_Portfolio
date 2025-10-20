@@ -15,7 +15,6 @@ export default function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        {/* bilinmeyen rota -> ana sayfa */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
