@@ -201,7 +201,7 @@ function Products() {
       <SectionTitle eyebrow="COLLECTION" title="Selected Products" desc="Adaptable to your dimensions and finish schedule." />
       <div className="grid container" style={{ marginTop: 6 }}>
         {productItems.map((p, i) => (
-          <Link key={i} className="card" to="/contact">
+          <Link key={i} className="card" to="/products">
             <div className="card-media"><img src={p.img} alt={p.title} /></div>
             <div className="card-body">
               <h3>{p.title}</h3>
