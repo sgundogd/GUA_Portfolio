@@ -272,15 +272,23 @@ button{
 .drawer-overlay{
   position:fixed; inset:0; background:rgba(0,0,0,.5);
   backdrop-filter: blur(4px);
-  display:flex; align-items:flex-end; justify-content:center; z-index:100;
+  display:flex; align-items:flex-end; justify-content:center; z-index:100;  /* default: bottom drawer */
 }
+.drawer-overlay--center{ align-items:center; }
 .drawer{
-  width:min(1000px, 92vw); background:#111;
+  width:min(1000px, 92vw);
+  background:#111;
   border:1px solid rgba(255,255,255,.08);
-  border-radius:16px 16px 0 0; padding:16px;
+  border-radius:16px 16px 0 0;        /* default: bottom drawer */
+  padding:16px;
   max-height:86vh; overflow:auto;
   box-shadow:0 -20px 50px rgba(0,0,0,.4);
 }
+.drawer--center{
+  border-radius:16px;                  /* tüm köşeler */
+  box-shadow:0 30px 90px rgba(0,0,0,.55);
+}
+
 .drawer-head{
   display:flex; align-items:center; justify-content:space-between;
   gap:12px; padding-bottom:8px;
