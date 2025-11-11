@@ -9,7 +9,7 @@ export default function Projects() {
   const CATEGORIES = [
     { key: "vision",          title: "GUA Vision",        to: "/projects/vision",          img: "/projects/vision.jpg", blurb: "Moodboard, lookbook ve tasarım yönü", icon: MoodboardIcon },
     { key: "hotel",           title: "Hotels",            to: "/projects/hotel",           img: "/projects/hotel.jpg",  blurb: "Konaklama & hospitality",            icon: HotelIcon },
-    { key: "office",          title: "Office",            to: "/projects/office",          img: "/projects/office.jpg", blurb: "Ofis & kurumsal alanlar",            icon: OfficeIcon },
+    { key: "office",          title: "Business",            to: "/projects/office",          img: "/projects/office.jpg", blurb: "Ofis & kurumsal alanlar",            icon: OfficeIcon },
     { key: "home",            title: "Home",              to: "/projects/home",            img: "/projects/home.jpg",   blurb: "Konut & rezidans",                   icon: HomeIcon },
     { key: "cafe-restaurant", title: "Cafe / Restaurant", to: "/projects/cafe-restaurant", img: "/projects/cafe.jpg",   blurb: "Yiyecek & içecek mekânları",        icon: CafeIcon },
   ];

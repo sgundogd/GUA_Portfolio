@@ -41,26 +41,27 @@ export const PROJECTS_DATA = {
   },
 
   office: {
-    title: "Office",
+    title: "Business",
     desc: "Ofis & kurumsal alanlar.",
     projects: [
       {
-        slug: "vertex-hq",
-        title: "Vertex HQ",
-        cover: "/projects/office/vertex/cover.jpg",
+        slug: "fashion-boutique",
+        title: "Fashion Boutique Interior",
+        cover: "/projects/office/fashion/1.jpg",
         images: [
-          "/projects/office/vertex/1.jpg",
-          "/projects/office/vertex/2.jpg",
-          "/projects/office/vertex/3.jpg",
+          "/projects/office/fashion/1.jpg",
+          "/projects/office/fashion/2.jpg",
+          "/projects/office/fashion/3.jpg",
         ],
       },
       {
-        slug: "atrium-boardroom",
-        title: "Atrium Boardroom",
-        cover: "/projects/office/atrium/cover.jpg",
+        slug: "levent-office",
+        title: "Levent Office",
+        cover: "/projects/office/office/1.jpg",
         images: [
-          "/projects/office/atrium/1.jpg",
-          "/projects/office/atrium/2.jpg",
+          "/projects/office/office/1.jpg",
+          "/projects/office/office/2.jpg",
+          "/projects/office/office/3.jpg",
         ],
       },
     ],
@@ -290,13 +291,13 @@ export const PROJECTS_DATA = {
     desc: "Yiyecek & içecek mekânları.",
     projects: [
       {
-        slug: "brass-and-bean",
-        title: "Brass & Bean",
-        cover: "/projects/cafe/brassbean/cover.jpg",
+        slug: "restaurant-interior",
+        title: "Restaurant Interior",
+        cover: "/projects/cafe/restaurant/2.jpg",
         images: [
-          "/projects/cafe/brassbean/1.jpg",
-          "/projects/cafe/brassbean/2.jpg",
-          "/projects/cafe/brassbean/3.jpg",
+          "/projects/cafe/restaurant/1.jpg",
+          "/projects/cafe/restaurant/2.jpg",
+          "/projects/cafe/restaurant/3.jpg",
         ],
       },
       {
