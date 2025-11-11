@@ -56,19 +56,16 @@ function References3D() {
     { name: "Avansas",     src: "/logo/avansas.png" },
     { name: "Madam Coco",     src: "/logo/coco.png" },
     { name: "Hilton",     src: "/logo/hilton.png" },
-    { name: "Huqqabaz",     src: "/logo/huqq.png" },
     { name: "Işık Okulları",     src: "/logo/ışık.png" },
     { name: "Kavan Yapı",     src: "/logo/kavan.png" },
     { name: "Kemer Country Club",     src: "/logo/kemer.png" },
     { name: "Koç Hoilding",     src: "/logo/koç.png" },
     { name: "Koton",     src: "/logo/koton.png" },
-    { name: "LC Waikiki",     src: "/logo/lcw.png" },
     { name: "Merit",     src: "/logo/merit.png" },
     { name: "Nef",     src: "/logo/nef.webp" },
+     { name: "LC Waikiki",     src: "/logo/lcw.png" },
     { name: "Şua İnşaat",     src: "/logo/şua.png" },
-    
-
-
+    { name: "Huqqabaz",     src: "/logo/huqq.png" },
   ];
 
   // Her group içinde logoları 3 kez tekrar et (genişlik daima yeterli olsun)
@@ -172,25 +169,25 @@ function OurServices() {
     {
       key: "design",
       title: "Design & Concept Development",
-      desc: "We translate ideas into refined concepts, blending aesthetics with function from the very start.",
+      //desc: "We translate ideas into refined concepts, blending aesthetics with function from the very start.",
       img: "/home/services/1.png",
     },
     {
       key: "craft",
       title: "Production & Craftsmanship",
-      desc: "Every piece is made-to-measure with precision, using the finest materials and expert craftsmanship.",
+      //desc: "Every piece is made-to-measure with precision, using the finest materials and expert craftsmanship.",
       img: "/home/services/2.png",
     },
     {
       key: "install",
       title: "Delivery & Installation",
-      desc: "From packing to on-site setup, we ensure seamless delivery and flawless installation worldwide.",
+      //desc: "From packing to on-site setup, we ensure seamless delivery and flawless installation worldwide.",
       img: "/home/services/5.png",
     },
     {
       key: "pm",
       title: "Project Management",
-      desc: "A dedicated team oversees every phase, guaranteeing on-time execution and consistent quality.",
+      //desc: "A dedicated team oversees every phase, guaranteeing on-time execution and consistent quality.",
       img: "/home/services/4.png",
     },
   ];
@@ -485,7 +482,6 @@ function ServiceTile({ icon: Icon, title, desc, delay = 0 }) {
     </div>
   );
 }*/
-
 /* ------------------------ PRODUCTS ---------------------------- */
 const productItems = [
   { title: "Alaaddin Lounge Chair", tag: "Customisable dimensions & finishes", img: "/alaaddin.png" },
@@ -496,44 +492,40 @@ const productItems = [
 
 function Products() {
   return (
-<section
-  id="products"
-  className="section"
-  style={{ minHeight: "100vh", display: "grid", alignContent: "center" }}
->
-  <div className="container products-head">
-    {/* Sol blok: eyebrow + title (aynı kolonda) */}
-    <div className="products-head-left">
-      <span className="eyebrow">COLLECTION</span>
-      <h2 className="products-title">Selected Products</h2>
-    </div>
+    <section
+      id="products"
+      className="section"
+      style={{ minHeight: "100vh", display: "grid", alignContent: "center" }}
+    >
+      <div className="container section-head">
+        <span className="eyebrow">COLLECTION</span>
 
-    {/* Sağ blok: See all */}
-    <Link to="/products" className="see-all" aria-label="See all products">
-      See all →
-    </Link>
-
-    {/* Alt satır: açıklama, iki kolonu kaplasın */}
-    <p className="products-desc muted">
-      Adaptable to your dimensions and finish schedule.
-    </p>
-  </div>
-
-  <div className="grid container" style={{ marginTop: 6 }}>
-    {productItems.map((p, i) => (
-      <Link key={i} className="card" to="/products">
-        <div className="card-media"><img src={p.img} alt={p.title} /></div>
-        <div className="card-body">
-          <h3>{p.title}</h3>
-          <span className="muted">{p.tag}</span>
+        <div className="head-row">
+          <h2 className="head-title">Selected Products</h2>
+          <Link to="/products" className="see-all" aria-label="See all products">
+            See all →
+          </Link>
         </div>
-      </Link>
-    ))}
-  </div>
-</section>
+
+        <p className="head-desc muted">
+          Adaptable to your dimensions and finish schedule.
+        </p>
+      </div>
+
+      <div className="grid container" style={{ marginTop: 6 }}>
+        {productItems.map((p, i) => (
+          <Link key={i} className="card" to="/products">
+            <div className="card-media"><img src={p.img} alt={p.title} /></div>
+            <div className="card-body">
+              <h3>{p.title}</h3>
+              <span className="muted">{p.tag}</span>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </section>
   );
 }
-
 
 /* ------------------------ PROJECTS ---------------------------- */
 const projectItems = [
@@ -542,10 +534,29 @@ const projectItems = [
   { title: "Bodrum Seafront Villa",    img: "/Sheraton-Batumi-Hotel-13-min.jpg" },
   { title: "Modern Istanbul Flat",     img: "/otel-dekor-tadilat-11.jpg" },
 ];
+
 function Projects() {
   return (
-    <section id="projects" className="section section-dark" style={{ minHeight: "100vh", display: "grid", alignContent: "center" }}>
-      <SectionTitle eyebrow="PROJECTS" title="Recent Work" desc="Selected residential and hospitality installs." />
+    <section
+      id="projects"
+      className="section section-dark"
+      style={{ minHeight: "100vh", display: "grid", alignContent: "center" }}
+    >
+      <div className="container section-head">
+        <span className="eyebrow">PROJECTS</span>
+
+        <div className="head-row">
+          <h2 className="head-title">Recent Work</h2>
+          <Link to="/projects" className="see-all" aria-label="See all projects">
+            See all →
+          </Link>
+        </div>
+
+        <p className="head-desc muted">
+          Selected residential and hospitality installs.
+        </p>
+      </div>
+
       <div className="grid container" style={{ marginTop: 6 }}>
         {projectItems.map((p, i) => (
           <div key={i} className="card card-dark">
@@ -557,6 +568,7 @@ function Projects() {
     </section>
   );
 }
+
 
 /* ------------------------ CONTACT CTA ------------------------- */
 function Contact() {
