@@ -1,148 +1,65 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import "../app.css";
-
-const categories = [
-  { slug: "hotel", label: "Hotel", img: "/projects/hotel.jpg" },
-  { slug: "office", label: "Office", img: "/projects/ofice.jpg" },
-  { slug: "home", label: "Home", img: "/projects/house.jpg" },
-  { slug: "cafe-restaurant", label: "Cafe / Restaurant", img: "/projects/cafe.jpg" },
-];
-
-const projects = [
-  { title: "Palm Jumeirah Residence", category: "hotel",  img: "/projects/hotel.jpg",        desc: "Walnut & marble suite with ocean view." },
-  { title: "Downtown Dubai Office",   category: "office", img: "/projects/ofice.jpg",  desc: "Minimal brass & stone workspace." },
-  { title: "Bodrum Seafront Villa",   category: "home",   img: "/projects/house.jpg",  desc: "Mediterranean oak interiors." },
-  { title: "Soho Lounge & Bar",       category: "cafe-restaurant", img: "/projects/cafe.jpg", desc: "Custom seating & ambient lighting." },
-];
-
-const references = [
-  { name: "Emaar",    logo: "/logo/atakoy-logo.png" },
-  { name: "Jumeirah", logo: "/logo/images.png" },
-  { name: "Marriott", logo: "/logo/images (2).jpeg" },
-  { name: "Rixos",    logo: "/logo/referans1.jpg" },
-  { name: "Fabay",    logo: "/logo/images.jpeg" },
-];
-
-function ProjectCard({ item }) {
-  return (
-    <div className="card card-dark">
-      <div className="card-media">
-        <img src={item.img} alt={item.title} />
-      </div>
-      <div className="card-body">
-        <h3 style={{ marginBottom: 6 }}>{item.title}</h3>
-        <span className="muted" style={{ fontSize: 14 }}>{item.desc}</span>
-      </div>
-    </div>
-  );
-}
+import "../styles/projects.css";
 
 export default function Projects() {
-  const { search } = useLocation();
-  const selected = new URLSearchParams(search).get("cat"); // ?cat=hotel
+  const [params] = useSearchParams();
+  const active = (params.get("cat") || "").toLowerCase(); // istersen kalsın
 
-  const visible = selected ? projects.filter(p => p.category === selected) : projects;
+  const CATEGORIES = [
+    { key: "vision",          title: "GUA Vision",        to: "/projects/vision",          img: "/projects/vision.jpg", blurb: "Moodboard, lookbook ve tasarım yönü", icon: MoodboardIcon },
+    { key: "hotel",           title: "Hotels",            to: "/projects/hotel",           img: "/projects/hotel.jpg",  blurb: "Konaklama & hospitality",            icon: HotelIcon },
+    { key: "office",          title: "Office",            to: "/projects/office",          img: "/projects/office.jpg", blurb: "Ofis & kurumsal alanlar",            icon: OfficeIcon },
+    { key: "home",            title: "Home",              to: "/projects/home",            img: "/projects/home.jpg",   blurb: "Konut & rezidans",                   icon: HomeIcon },
+    { key: "cafe-restaurant", title: "Cafe / Restaurant", to: "/projects/cafe-restaurant", img: "/projects/cafe.jpg",   blurb: "Yiyecek & içecek mekânları",        icon: CafeIcon },
+  ];
 
   return (
-    <main className="section section-dark" style={{ paddingTop: 56 }}>
-      {/* Intro */}
-      <div className="container" style={{ textAlign: "center", marginBottom: 28 }}>
-        <span className="eyebrow">Work</span>
-        <h1
-          style={{
-            fontFamily: "Playfair Display, serif",
-            fontSize: "clamp(32px,4.5vw,48px)",
-            margin: "8px 0 12px",
-          }}
-        >
-          Signature Projects
-        </h1>
-        <p className="muted" style={{ maxWidth: 720, margin: "0 auto" }}>
-          Residential & hospitality spaces across GCC and Europe.
-        </p>
-      </div>
+    <section className="section projects-landing">
+      <div className="container">
+        <header className="proj-head">
+          <span className="eyebrow">PROJECTS</span>
+          <h1>Choose a space type</h1>
+          <p className="muted">Kategoriyi seçin; örnek işler, malzeme dili ve tipik teslim kapsamını görün.</p>
+        </header>
 
-      {/* References + CTA (çakışma yok) */}
-      {/* References + CTA (label solda, logolar ortada, CTA sağda) */}
-      <div className="project-refs container">
-        <span className="refs-label muted">Selected References</span>
-
-        <div className="refs-logos refs-logos--center">
-          {references.map((r, i) => (
-          <span key={i} className="ref-logo">
-        <img src={r.logo} alt={r.name} />
-      </span>
-    ))}
-  </div>
-
-  <Link to="/contact" className="btn btn-gold project-refs-cta">
-    Request Portfolio PDF
-  </Link>
-</div>
-
-
-      {/* Kategori filtre pill'leri */}
-      <div className="catbar catbar-projects container">
-        <Link to="/projects" className={`pill ${!selected ? "active" : ""}`}>All</Link>
-        {categories.map(c => (
-          <Link
-            key={c.slug}
-            to={`/projects?cat=${c.slug}`}
-            className={`pill ${selected === c.slug ? "active" : ""}`}
-          >
-            {c.label}
-          </Link>
-        ))}
-      </div>
-
-      {/* Filtrelenmiş projeler */}
-      <section className="container" style={{ marginTop: 10 }}>
-        {visible.length === 0 ? (
-          <div className="card card-dark" style={{ padding: 18, textAlign: "center" }}>
-            <strong>No projects found</strong>
-            <p className="muted" style={{ marginTop: 6 }}>
-              Try a different category or <Link className="link-ghost" to="/contact">request our full portfolio</Link>.
-            </p>
-          </div>
-        ) : (
-          <div className="grid">
-            {visible.map((p, i) => (
-              <ProjectCard key={`${p.title}-${i}`} item={p} />
-            ))}
-          </div>
-        )}
-      </section>
-
-      {/* (Opsiyonel) Kategoriye göz at: Eğer istersen bu bloğu aç */}
-      {/*
-      <section className="container" style={{ marginTop: 28 }}>
-        <div className="grid">
-          {categories.map((c, i) => (
-            <Link key={i} to={`/projects?cat=${c.slug}`} className="card card-dark">
-              <div className="card-media">
-                <img src={c.img} alt={c.label} />
-              </div>
-              <div className="card-body">
-                <h3>{c.label}</h3>
-                <span className="muted">Browse {c.label} projects</span>
+        <div className="proj-grid" role="list">
+          {CATEGORIES.map((c) => (
+            <Link
+              key={c.key}
+              to={c.to}
+              role="listitem"
+              className={`proj-tile ${active === c.key ? "on" : ""}`}
+              aria-label={`${c.title} — projeleri görüntüle`}
+            >
+              <span className="proj-bg" style={{ backgroundImage: `url(${c.img})` }} aria-hidden />
+              <span className="proj-glass" aria-hidden />
+              <div className="proj-body">
+                <span className="proj-icon" aria-hidden><c.icon /></span>
+                <h3>{c.title}</h3>
+                <p className="muted">{c.blurb}</p>
               </div>
             </Link>
           ))}
         </div>
-      </section>
-      */}
-
-      {/* Alt CTA */}
-      <div className="promise" style={{ marginTop: 48 }}>
-        <div className="container promise-inner">
-          <div>
-            <h3>From concept to installation</h3>
-            <p className="muted">Design, production, and white-glove setup.</p>
-          </div>
-          <Link className="btn btn-gold" to="/contact">Start Your Project</Link>
-        </div>
       </div>
-    </main>
+    </section>
   );
 }
+
+/* ---------- Brass line ikonlar (SVG) ---------- */
+function MoodboardIcon(){
+  return (
+    <svg viewBox="0 0 24 24" className="ico" fill="none">
+      <rect x="3"  y="4"  width="8" height="7"  rx="1.4" stroke="currentColor" strokeWidth="1.6"/>
+      <rect x="3"  y="13" width="8" height="7"  rx="1.4" stroke="currentColor" strokeWidth="1.6"/>
+      <rect x="13" y="4"  width="8" height="8"  rx="1.4" stroke="currentColor" strokeWidth="1.6"/>
+      <path d="M17 14.5l.9 1.9 1.9.9-1.9.9-.9 1.9-.9-1.9-1.9-.9 1.9-.9.9-1.9Z"
+            stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+function HotelIcon(){ return (<svg viewBox="0 0 24 24" className="ico" fill="none"><path d="M3 19V6M21 19V9a3 3 0 0 0-3-3H6a3 3 0 0 0-3 3" stroke="currentColor" strokeWidth="1.6"/><path d="M6 13h12a3 3 0 0 1 3 3v3H3v-3a3 3 0 0 1 3-3Z" stroke="currentColor" strokeWidth="1.6"/><path d="M7.5 9h3M13.5 9h3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>); }
+function OfficeIcon(){ return (<svg viewBox="0 0 24 24" className="ico" fill="none"><rect x="4" y="4" width="8" height="16" rx="1.5" stroke="currentColor" strokeWidth="1.6"/><rect x="12" y="9" width="8" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.6"/><path d="M7 8h2M7 11h2M7 14h2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>); }
+function HomeIcon(){ return (<svg viewBox="0 0 24 24" className="ico" fill="none"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1v-9.5Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/></svg>); }
+function CafeIcon(){ return (<svg viewBox="0 0 24 24" className="ico" fill="none"><path d="M5 8h11a3 3 0 1 0 0 6H5V8Z" stroke="currentColor" strokeWidth="1.6"/><path d="M5 14v1a4 4 0 0 0 4 4h3a4 4 0 0 0 4-4v-1" stroke="currentColor" strokeWidth="1.6"/><path d="M8 5s.8.6 0 1.6M11 5s.8.6 0 1.6M14 5s.8.6 0 1.6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>); }

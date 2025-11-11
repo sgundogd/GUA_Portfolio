@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../app.css";
+import "../styles/contact.css";
 
 export default function Contact() {
   // FIX: plain JS state (no TS generic)

@@ -1,0 +1,504 @@
+/* =========================
+   HERO — Fullscreen video
+========================= */
+.hero.hero--fullscreen{
+  min-height: calc(100vh  - var(--header-h));
+  height:     calc(100vh  - var(--header-h));
+  min-height: calc(100svh - var(--header-h));
+  height:     calc(100svh - var(--header-h));
+  min-height: calc(100dvh - var(--header-h));
+  height:     calc(100dvh - var(--header-h));
+}
+.hero{
+  position: relative;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  overflow: hidden;
+}
+.hero-video{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: saturate(1.05) contrast(1.05);
+  -webkit-transform: translateZ(0);
+}
+.hero-overlay{
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(22,22,22,.18) 0%, rgba(22,22,22,.55) 55%, rgba(22,22,22,.9) 100%),
+    radial-gradient(60% 60% at 70% 20%, rgba(192,161,107,.22) 0%, rgba(192,161,107,0) 60%);
+  pointer-events: none;
+}
+.hero-content{
+  position: relative;
+  height: 100%;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.hero h1{
+  font-family: "Playfair Display", serif;
+  font-weight: 600; letter-spacing: 0;
+  font-size: clamp(34px, 5.2vw, 56px);
+  line-height: 1.05; margin: 0 0 12px 0;
+}
+.hero p{
+  max-width: 640px; font-size: clamp(16px, 1.7vw, 18px);
+  opacity: .85; margin: 0 0 22px 0;
+}
+.hero-cta{ display: flex; gap: 16px; align-items: center; }
+.accent{
+  position: relative; color: var(--porcelain);
+  background: linear-gradient(0deg, var(--brass), var(--brass)) no-repeat bottom left / 0% 2px;
+  transition: background-size .35s cubic-bezier(.22,1,.36,1);
+}
+.hero:hover .accent{ background-size: 100% 2px; }
+
+/* =========================
+   WHO WE ARE
+========================= */
+/* Yapı ve hizalama */
+.vh-section{
+  min-height: calc(100vh - var(--header-h));
+  display:grid; align-items:center;
+  padding-block: clamp(28px, 5vh, 64px);
+}
+
+.wwd{
+  display:grid; grid-template-columns: 1fr 1fr;
+  align-items:center;
+  gap: clamp(20px, 4vw, 48px);
+}
+@media (max-width: 980px){
+  .wwd{ grid-template-columns: 1fr; }
+  .wwd-media{ order:2; height: clamp(260px, 46vh, 520px); }
+}
+
+/* Tipografi ve ritim (başlık/giriş) */
+.wwd-copy{ max-width: 620px; }
+.wwd .eyebrow{ display:inline-block; margin-bottom: 6px; }
+.wwd-title{
+  font-family: "Playfair Display", serif;
+  font-size: clamp(26px, 3.6vw, 40px);
+  line-height: 1.12;
+  margin: 6px 0 10px;
+}
+.wwd-intro{
+  margin: 8px 0 14px;
+  opacity: .85;
+}
+
+/* Etiketler */
+.highlight-bar{ display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 8px; }
+.tag{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.06);
+  padding:8px 10px; border-radius:10px;
+  font-weight:600; font-size:14px;
+}
+
+/* Maddeler (tick’li listeyi hizalı ve sıkı yap) */
+.list-plain{ list-style:none; padding:0; margin:12px 0 4px; }
+.list-plain li{
+  display:flex; align-items:baseline; gap:8px;
+  margin:6px 0; line-height:1.45;
+}
+.list-plain li::before{
+  content:"✓"; opacity:.7; margin-right:4px; transform: translateY(1px);
+}
+.wwd-points strong{ font-weight:700; }
+.gold{ color: var(--brass); font-weight:700; }
+
+/* CTA aralığı sabitle */
+.wwd-cta{ display:flex; gap:10px; margin-top:14px; }
+
+/* Medya kutusu */
+.wwd-media{
+  position:relative;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px; overflow:hidden;
+  height: clamp(320px, 68vh, 720px);
+  background:#0f0f0f;
+}
+.wwd-video{
+  width:100%; height:100%; object-fit:cover; display:block;
+  filter:saturate(1.02) contrast(1.02);
+}
+.wwd-glass{
+  position:absolute; left:12px; right:12px; bottom:12px;
+  padding:10px 12px; border-radius:12px;
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(6px); background: rgba(17,17,17,.55);
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+}
+
+
+
+/* aynı .why stillerini kullanıyoruz; sadece küçük ek/düzeltmeler */
+
+/* bölüm */
+.why { padding: 54px 0 72px; background: #0f0f0f; }
+.why-title{
+  font-family: "Playfair Display", serif;
+  font-size: clamp(28px, 4.2vw, 44px);
+  margin: 6px 0 0;
+}
+
+/* viewport */
+.why-viewport{
+  position: relative;
+  width: min(1280px, 96vw);
+  height: clamp(360px, 58vh, 640px);
+  margin: 10px auto 0;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.08);
+  background:#0b0b0b;
+  -webkit-mask-image: -webkit-radial-gradient(white, black); /* Safari perf */
+}
+
+/* track */
+.why-track{
+  display: flex;
+  height: 100%;
+  will-change: transform;
+  transition: transform .55s cubic-bezier(.22,1,.36,1);
+}
+
+/* slide */
+.why-slide{ position: relative; width: 100%; height: 100%; flex: 0 0 100%; }
+
+/* media */
+.why-media img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit: cover;            /* istersen obj-pos ekleyebilirsin */
+  filter: saturate(1.02) contrast(1.02);
+}
+
+/* overlay & caption */
+.why-overlay{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.05) 0%, rgba(0,0,0,.55) 60%, rgba(0,0,0,.78) 100%),
+    radial-gradient(60% 60% at 0% 100%, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 60%);
+  pointer-events:none;
+}
+.why-caption{
+  position:absolute; left:24px; bottom:22px;
+  max-width:min(640px, 80%);
+  padding:14px 16px; border-radius:14px;
+  background: rgba(20,20,20,.45);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(6px);
+}
+.why-caption h3{
+  margin:0 0 6px 0;
+  font-family:"Playfair Display", serif;
+  font-size: clamp(22px, 3.2vw, 34px);
+  line-height:1.1;
+}
+
+/* arrows */
+.why-arrow{
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:42px; height:42px; border-radius:50%;
+  display:grid; place-items:center;
+  background: rgba(17,17,17,.55);
+  border:1px solid rgba(255,255,255,.18);
+  color: var(--porcelain);
+  font-size: 28px; line-height: 0; cursor:pointer;
+  transition: background .25s ease, transform .2s ease;
+}
+.why-arrow:hover{ background: rgba(17,17,17,.72); }
+.why-arrow:active{ transform: translateY(-50%) scale(.98); }
+.why-arrow.left{ left:12px; } 
+.why-arrow.right{ right:12px; }
+
+/* dots */
+.why-dots{
+  position:absolute; left:50%; transform:translateX(-50%);
+  bottom:12px; display:flex; gap:8px;
+}
+.why-dots .dot{
+  width:8px; height:8px; border-radius:50%;
+  border:1px solid rgba(255,255,255,.5);
+  background:transparent; cursor:pointer; padding:0;
+}
+.why-dots .dot.on{ background: rgba(255,255,255,.85); }
+
+/* mobil caption tam genişlik */
+@media (max-width:720px){
+  .why-caption{ left:14px; right:14px; bottom:14px; max-width:unset; }
+}
+
+/* motion reduce: autoplay ve animasyonu kapat/sadeleştir */
+@media (prefers-reduced-motion: reduce){
+  .why-track{ transition: none !important; }
+}
+
+
+/* =========================
+   REFERENCES — GAPLESS MARQUEE
+========================= */
+.refs3d{
+  --refs-gap: 36px;     /* logo aralığı */
+  --refs-h: 120px;      /* şerit yüksekliği */
+  --refs-speed: 40s;    /* animasyon süresi */
+
+  padding-top: 72px; padding-bottom: 72px;
+}
+.refs3d .refs3d-head{ text-align:center; margin-bottom:16px; }
+.refs3d .refs3d-head h2{
+  font-family:"Playfair Display", serif;
+  font-size: clamp(26px, 3.8vw, 36px); margin:8px 0 0;
+}
+.refs3d-band{
+  position: relative; height: var(--refs-h);
+  border-radius: 18px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,.06);
+  background: radial-gradient(120% 140% at 50% 35%, #202020 0%, #1a1a1a 60%, #161616 100%);
+  box-shadow:
+    inset 0 12px 22px rgba(255,255,255,.05),
+    inset 0 -18px 28px rgba(0,0,0,.55),
+    0 8px 30px rgba(0,0,0,.35);
+  padding-inline: 28px; /* bant kenar boşluğu (track dışında) */
+}
+.refs3d-band::before{
+  content:""; position:absolute; inset:-1px; border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,0) 30%),
+    linear-gradient(0deg, rgba(0,0,0,.5), transparent 45%),
+    radial-gradient(60% 120% at 50% 10%, rgba(192,161,107,.22), transparent 55%);
+  pointer-events:none; mix-blend-mode: screen;
+}
+.refs3d-vignette{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.35), transparent 22%, transparent 78%, rgba(0,0,0,.4));
+  pointer-events:none;
+}
+
+/* Track: padding/gap yok */
+.refs3d-track{
+  position:absolute; left:28px; right:28px; top:0; bottom:0;
+  display:flex; align-items:center;
+}
+.refs3d-group{
+  display:flex; align-items:center;
+  min-width: max-content; /* içerik kadar genişle */
+}
+/* Aralığı öğelere ver: seam'de de aynı boşluk oluşsun */
+.refs3d-item{
+  flex: 0 0 auto;
+  height: 52px; display:flex; align-items:center; justify-content:center;
+  margin: 0 calc(var(--refs-gap)/2);   /* ← eşit aralık, seam dahil */
+  opacity:.9;
+  filter: grayscale(100%) contrast(1.15) brightness(1.05);
+  transition: transform .2s ease, opacity .2s ease, filter .2s ease;
+}
+.refs3d-item img{
+  height:100%; width:auto; object-fit:contain; display:block;
+}
+.refs3d-item:hover{
+  transform: translateY(-2px); opacity:1;
+  filter: grayscale(0%) contrast(1.1) brightness(1.05);
+}
+
+/* Animasyon: 2 eş group → -50% kaydır */
+.marquee{ animation: refs3d-scroll var(--refs-speed) linear infinite; will-change: transform; }
+.refs3d-band:hover .marquee{ animation-play-state: paused; }
+@keyframes refs3d-scroll{
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.refs3d-foot{ text-align:center; font-size:14px; margin-top:12px; opacity:.75; }
+
+@media (max-width: 720px){
+  .refs3d-band{ height: 96px; padding-inline: 16px; }
+  .refs3d-item{ height: 40px; }
+  .refs3d{ --refs-gap: 24px; }
+}
+
+/* =========================
+   WHY GUA — Part II (Statement Rail)
+========================= */
+.why2-rail{
+  position: relative;
+  padding: 56px 0 72px;
+  border-top: 1px solid var(--stroke);
+  background:
+    radial-gradient(60% 60% at 90% 0%, rgba(192,161,107,.08), transparent 60%),
+    radial-gradient(70% 50% at 10% 100%, rgba(192,161,107,.06), transparent 60%),
+    linear-gradient(180deg,#0f0f0f 0%, #0b0b0b 100%);
+  overflow: clip;
+}
+.w2r-head{
+  text-align:center; margin-bottom: 16px;
+}
+.w2r-head h2{
+  font-family:"Playfair Display", serif;
+  font-size: clamp(26px,3.8vw,40px);
+  margin: 8px 0 6px;
+}
+
+/* ——— yatay ray ——— */
+.w2r-viewport{
+  position: relative;
+  overflow: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  background: #101010;
+  padding: 12px;
+}
+.w2r-track{
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: clamp(280px, 46vw, 520px);
+  gap: 12px;
+}
+
+/* ——— kart ——— */
+.w2r-card{
+  position: relative;
+  scroll-snap-align: start;
+  background: linear-gradient(180deg,#151515 0%,#101010 100%);
+  border: 1px solid var(--stroke);
+  border-radius: 14px;
+  padding: 16px 16px 14px;
+  isolation: isolate;
+  transition: transform .35s ease, box-shadow .35s ease, border-color .3s ease;
+  outline: none;
+}
+.w2r-card:hover,
+.w2r-card:focus-visible{
+  transform: translateY(-4px);
+  border-color: rgba(255,255,255,.16);
+  box-shadow: 0 18px 50px rgba(0,0,0,.35);
+}
+
+/* büyük numara (arkaplan damga) */
+.w2r-no{
+  position:absolute; top:10px; right:12px;
+  font-weight: 800;
+  font-size: 44px;
+  letter-spacing: .02em;
+  color: rgba(255,255,255,.06);
+  pointer-events: none;
+}
+
+/* başlık & metin */
+.w2r-title{
+  margin: 0 0 6px 0;
+  font-size: clamp(16px,1.9vw,20px);
+  font-weight: 700;
+}
+.w2r-desc{ margin: 0 0 10px 0; }
+
+/* etiketler */
+.w2r-tags{
+  display:flex; flex-wrap:wrap; gap:8px;
+  list-style:none; padding:0; margin:0;
+}
+.w2r-tags li{
+  border:1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.06);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 13px;
+  opacity:.95;
+}
+
+/* brass sweep — kartın üzerinde soldan sağa sakin bir parlama */
+.w2r-sheen{
+  content:""; position:absolute; inset:-1px;
+  border-radius: 14px;
+  pointer-events:none;
+  background: conic-gradient(from 0deg at 0% 50%,
+              rgba(192,161,107,.0) 0%,
+              rgba(192,161,107,.25) 12%,
+              rgba(192,161,107,.0) 24%);
+  mix-blend-mode: screen;
+  opacity: 0; transform: translateX(-12%);
+  transition: opacity .5s ease, transform .7s ease;
+}
+.w2r-card:hover .w2r-sheen,
+.w2r-card:focus-visible .w2r-sheen{
+  opacity: .9; transform: translateX(0%);
+}
+
+/* mobil: tek tek tam genişlik yakala */
+@media (max-width: 780px){
+  .w2r-track{ grid-auto-columns: 88%; }
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .w2r-card, .w2r-sheen { transition: none !important; }
+}
+/*products*/
+.products-head{
+  display:grid;
+  grid-template-columns: 1fr auto;   /* sol içerik, sağ buton */
+  align-items:end;                    /* taban hizası: buton başlık altına oturur */
+  gap: 12px 18px;
+  margin-bottom: 18px;
+}
+
+/* Sol blok iç tipografi */
+.products-title{
+  font-family:"Playfair Display", serif;
+  font-size: clamp(28px, 3.6vw, 40px);
+  line-height:1.15;
+  margin: 6px 0 0;                   /* eyebrow’dan sonra nefes */
+}
+.products-head .section-title {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(28px, 3.6vw, 40px);
+  line-height: 1.15;
+  margin: 4px 0;
+}
+
+.products-desc{
+  grid-column: 1 / -1;               /* iki kolonu kapla */
+  margin: 6px 0 0;
+}
+
+.see-all{
+  justify-self:end;                   /* sağa yasla */
+  align-self:end;                     /* başlık tabanına hizala */
+  font-weight:600;
+  color: var(--porcelain);
+  border:1px solid rgba(255,255,255,.12);
+  padding: 10px 16px;
+  border-radius: 12px;
+  line-height:1;                      /* dikey hizayı netleştirir */
+  transition: background .25s ease, border-color .25s ease, transform .15s ease;
+}
+.see-all:hover{
+  background: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.22);
+  transform: translateY(-1px);
+}
+@media (max-width: 760px){
+  .products-head{
+    grid-template-columns: 1fr;       /* tek kolon */
+    align-items:start;
+  }
+  .see-all{
+    justify-self:start;
+    margin-top: 8px;
+  }
+}
+
+
+/* =========================
+   OUR SERVICES — reduce motion
+========================= */
+@media (prefers-reduced-motion: reduce){
+  .svc-tile{ animation: none !important; }
+}
+
+
+

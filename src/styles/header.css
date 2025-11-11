@@ -1,0 +1,107 @@
+/* ==================================================
+   HEADER.CSS — fixed header + dropdown (globalin üstüne yazar)
+================================================== */
+
+/* Sayfayı header kadar aşağı it (çakışma olmasın) */
+
+
+/* Başlangıçta daha opak; scroll’da şeffaflaşsın */
+.header{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 9999;
+  height: var(--header-h);
+  background: rgba(22,22,22,.90);               /* initial */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  transition: background .3s ease, border-color .3s ease;
+}
+.header--scrolled{
+  background: rgba(22,22,22,.55);               /* scrolled */
+  border-bottom-color: rgba(255,255,255,.05);
+}
+
+.header-inner{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(16px, 4vw, 40px);
+}
+
+/* Marka */
+.brand{ display:flex; align-items:baseline; gap:.6rem; color: var(--porcelain); }
+.brand:hover{ opacity:.9; }
+.brand-mark{ font-family:"Playfair Display", serif; font-weight:700; font-size:24px; letter-spacing:.08em; }
+.brand-sub{ font-size:12px; opacity:.7; text-transform:uppercase; letter-spacing:.2em; }
+
+/* Nav + Dropdown */
+.nav{ position:relative; display:flex; gap:22px; align-items:center; }
+
+/* Linklerde padding; .btn’leri hariç tut */
+.nav a:not(.btn), .nav .nav-link{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:8px 0; opacity:.9;
+}
+.nav a:hover, .nav .nav-link:hover{ opacity:1; }
+
+.nav-item.dropdown{ position:relative; }
+.caret{ font-size:12px; opacity:.7; }
+
+/* Dropdown panel */
+.nav .menu{
+  position:absolute;
+  top: calc(100% + 10px); right: 0;
+  display:flex; flex-direction:column; gap:4px;
+  min-width:220px; padding:10px;
+  background: rgba(22,22,22,.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;
+  box-shadow:0 12px 40px rgba(0,0,0,.35);
+  opacity:0; transform: translateY(-6px);
+  pointer-events:none;
+  transition: opacity .18s ease, transform .18s ease;
+  z-index: 10000;
+}
+
+/* Hover köprüsü: tetikçi ile panel arasında boşlukta hover’ı tut */
+.nav .menu::before{
+  content:"";
+  position:absolute;
+  left:-12px; right:-12px;      /* geniş tolerans */
+  top:-22px; height:24px;       /* köprü alanı */
+  pointer-events:auto;
+}
+
+/* Açık halde */
+.nav .menu.open,
+.nav-item.dropdown:hover .menu{
+  opacity:1; transform: translateY(0); pointer-events:auto;
+}
+
+.nav .menu a{
+  padding:10px 12px; border-radius:8px; white-space:nowrap; opacity:.9;
+}
+.nav .menu a:hover{ background:rgba(255,255,255,.06); opacity:1; }
+
+@media (max-width: 720px){
+  .nav{ gap:14px; }
+}
+
+/* Contact button nav içinde daha ferah dursun */
+.nav .btn{
+  padding:10px 16px !important;
+  line-height:1;
+  border-radius:999px;
+}
+.nav .btn.btn-outline{
+  border:1px solid rgba(255,255,255,.28);
+  background: rgba(255,255,255,.04);
+}
+.nav .btn.btn-outline:hover{
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.42);
+}

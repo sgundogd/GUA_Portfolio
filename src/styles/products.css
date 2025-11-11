@@ -1,0 +1,112 @@
+/* ==================================================
+   PRODUCTS PAGE — scoped styles
+   Not: Global tokenler ve base resetler app.css’de.
+================================================== */
+
+/* ----- Intro ----- */
+.products-page .eyebrow { /* sadece bu sayfada küçük güçlendirme */
+  opacity:.7;
+}
+
+/* ----- Üst filtre bar hizalama ----- */
+.products-page .product-controls{
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+/* ----- Material chip’lerinin satır içi hizası ----- */
+.products-page .materials{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+/* ----- Kart içi: finishes satırı ----- */
+.products-page .finish-row{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-top:4px;
+}
+
+/* Dot’lar kart içinde biraz daha belirgin olsun */
+.products-page .finish-row .dot{
+  width:10px; height:10px; border-radius:50%;
+  display:inline-block; flex:0 0 auto;
+  box-shadow:0 0 0 1px rgba(255,255,255,.12) inset;
+}
+
+/* Kart hover mikro hareket */
+.products-page .card:hover .card-media img{
+  transform: scale(1.05);
+}
+
+/* Boş durum kutusu */
+.products-page .empty{
+  text-align:center;
+  padding: 18px;
+  border:1px dashed rgba(255,255,255,.12);
+  border-radius:14px;
+}
+
+/* ----- Spec Modal (merkezlenmiş) mikro iyileştirme ----- */
+.products-page .drawer-overlay.drawer-overlay--center{
+  align-items:center;
+}
+.products-page .drawer.drawer--center{
+  border-radius:16px;
+  box-shadow:0 30px 90px rgba(0,0,0,.55);
+  transform: translateY(6px) scale(.98);
+  animation: prd-modal-in .18s ease forwards;
+}
+@keyframes prd-modal-in{
+  to { transform: translateY(0) scale(1); }
+}
+
+/* Modal içi görüntü oranı ve görsel kenarları */
+.products-page .drawer-media{
+  aspect-ratio: 4 / 3;
+  background:#0f0f0f;
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.06);
+}
+.products-page .drawer-media img{
+  width:100%; height:100%; object-fit:cover;
+}
+
+/* Modal aksiyon butonları aralığı */
+.products-page .drawer-actions{
+  display:flex; gap:10px; margin-top:14px;
+}
+
+/* ----- Arama ve sıralama girişleri ----- */
+.products-page .search input{
+  width: 240px;   /* biraz daha geniş */
+}
+.products-page .sort{
+  min-width: 160px;
+}
+
+/* ----- Grid oranı: ürünlerde 4:3 kalsın; mobilde tek sütun ----- */
+@media (max-width:1024px){
+  .products-page .grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width:560px){
+  .products-page .grid{ grid-template-columns: 1fr; }
+  .products-page .search input{ width: 100%; }
+}
+
+/* ----- Klavye erişilebilirliği ----- */
+.products-page .btn:focus,
+.products-page .pill:focus,
+.products-page .chip:focus,
+.products-page .icon-btn:focus,
+.products-page .sort:focus,
+.products-page .search input:focus{
+  outline: 2px solid rgba(192,161,107,.6); /* brass vurgusu */
+  outline-offset: 2px;
+  border-color: rgba(192,161,107,.45);
+}

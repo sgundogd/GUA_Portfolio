@@ -1,6 +1,7 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../app.css";
+import "../styles/products.css";
 
 /* --- Demo veriler (görselleri public/products/ içine koy) --- */
 const ALL_PRODUCTS = [

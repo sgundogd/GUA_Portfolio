@@ -1,0 +1,122 @@
+/* ==================================================
+   CONTACT PAGE — scoped styles
+   Global tokenler (renkler, .btn, .card, .container) app.css’de.
+================================================== */
+
+.contact-page .section {
+  padding-block: 64px;
+}
+
+/* ---------- Hero grid (video + form) ---------- */
+.contact-page .hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 24px;
+}
+
+/* mevcut JSX grid’ini class’sız kullanıyorsun; inline stiller var.
+   İstersen üstteki sınıfı kullanırsın: <div className="container hero-grid"> */
+
+/* Media kartı */
+.contact-page .card-media {
+  aspect-ratio: 16 / 9;
+}
+.contact-page .card-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.02) contrast(1.03);
+}
+
+/* “Start a brief” metni */
+.contact-page .card.card-dark .card-body p {
+  margin-top: 6px;
+  opacity: .8;
+}
+
+/* ---------- Contact info kutusu ---------- */
+.contact-page .card h2 {
+  font-family: "Playfair Display", serif;
+}
+.contact-page .contact-actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* küçük ayraç */
+.contact-page hr {
+  border: 0;
+  border-top: 1px solid rgba(255,255,255,.08);
+  margin: 14px 0;
+}
+
+/* ---------- Studios başlığı ---------- */
+.contact-page .studios-title {
+  text-align: left;
+  margin-bottom: 16px;
+}
+.contact-page .studios-title h2 {
+  font-family: "Playfair Display", serif;
+  margin: 6px 0 10px;
+}
+
+/* ---------- Office pills ---------- */
+.contact-page .catbar {
+  margin-bottom: 14px;
+}
+
+/* ---------- Address + Map kartı ---------- */
+.contact-page .studio-card {
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  gap: 18px;
+  overflow: hidden;
+}
+.contact-page .studio-card .card-body h3 {
+  margin-top: 0;
+}
+.contact-page .studio-card .muted + div {
+  /* “Phone” ve “Hours” satırlarındaki değerlerin biraz nefes alması */
+  margin-top: 2px;
+}
+
+/* Map alanı */
+.contact-page .map-wrap {
+  position: relative;
+  min-height: 320px;
+}
+.contact-page .map-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: grayscale(40%) contrast(1.05);
+  border-left: 1px solid rgba(255,255,255,.06);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+  .contact-page .hero-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .contact-page .studio-card {
+    grid-template-columns: 1fr;
+  }
+  .contact-page .map-wrap {
+    min-height: 280px;
+  }
+}
+
+@media (max-width: 560px) {
+  .contact-page .section {
+    padding-block: 52px;
+  }
+  .contact-page .contact-actions {
+    grid-template-columns: 1fr;
+  }
+}
