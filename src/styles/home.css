@@ -121,6 +121,30 @@
   backdrop-filter: blur(6px); background: rgba(17,17,17,.55);
   display:flex; align-items:center; justify-content:space-between; gap:12px;
 }
+@media (max-width: 720px){
+
+  /* Ana etiket çubuğu ve özet maddeleri gizle */
+  .highlight-bar,
+  .wwd-points {
+    display: none !important;
+  }
+
+  /* Mobilde giriş paragrafını kısaltılmış versiyonla değiştir */
+  .wwd-intro {
+    font-size: 15px;
+    line-height: 1.5;
+    max-width: 90%;
+  }
+
+  /* İstersen metni sadece 2 satırla sınırlayabiliriz: */
+  .wwd-intro {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;   /* 2 satırla sınırla */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
 
 /* =========================
    WHY GUA — Carousel
