@@ -1,0 +1,39 @@
+/* =========================
+   FOOTER STYLES
+========================= */
+.footer{
+  background: #0f0f0f;
+  border-top: 1px solid rgba(255,255,255,.06);
+  color: var(--porcelain);
+  padding-block: 24px;
+  margin-top: 60px;
+}
+
+.footer-inner{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;                /* mobile için satır altına düşebilir */
+  gap: 8px;
+  text-align: center;
+}
+
+.footer-left{
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+
+.footer-right{
+  font-size: 14px;
+  opacity: .85;
+}
+
+/* Mobil: her şey ortalı */
+@media (max-width: 720px){
+  .footer-inner{
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 4px;
+  }
+}
