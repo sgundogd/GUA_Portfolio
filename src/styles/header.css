@@ -1,107 +1,109 @@
-/* ==================================================
-   HEADER.CSS — fixed header + dropdown (globalin üstüne yazar)
-================================================== */
+/* ===== Vars ===== */
+:root{
+  --header-h-mobile: 60px;
+  --header-h-desktop: 72px;
+  --header-h: var(--header-h-desktop);
+  --safe-top: env(safe-area-inset-top, 0px);
+}
 
-/* Sayfayı header kadar aşağı it (çakışma olmasın) */
-
-
-/* Başlangıçta daha opak; scroll’da şeffaflaşsın */
+/* ===== Header Base ===== */
 .header{
-  position: fixed;
-  top: 0; left: 0; right: 0;
+  position: fixed; inset: 0 0 auto 0;
   z-index: 9999;
-  height: var(--header-h);
-  background: rgba(22,22,22,.90);               /* initial */
+  height: calc(var(--header-h) + var(--safe-top));
+  padding-top: var(--safe-top);
+  background: rgba(22,22,22,.90);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(255,255,255,.08);
   transition: background .3s ease, border-color .3s ease;
 }
 .header--scrolled{
-  background: rgba(22,22,22,.55);               /* scrolled */
-  border-bottom-color: rgba(255,255,255,.05);
+  background: rgba(22,22,22,.60);
+  border-bottom-color: rgba(255,255,255,.06);
 }
 
 .header-inner{
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  height: var(--header-h);
+  display:flex; align-items:center; justify-content:space-between;
   padding: 0 clamp(16px, 4vw, 40px);
 }
 
-/* Marka */
-.brand{ display:flex; align-items:baseline; gap:.6rem; color: var(--porcelain); }
+/* ===== Brand ===== */
+.brand{ display:flex; align-items:baseline; gap:.6rem; color: var(--porcelain); text-decoration:none; }
 .brand:hover{ opacity:.9; }
 .brand-mark{ font-family:"Playfair Display", serif; font-weight:700; font-size:24px; letter-spacing:.08em; }
 .brand-sub{ font-size:12px; opacity:.7; text-transform:uppercase; letter-spacing:.2em; }
 
-/* Nav + Dropdown */
+/* ===== Desktop NAV ===== */
 .nav{ position:relative; display:flex; gap:22px; align-items:center; }
-
-/* Linklerde padding; .btn’leri hariç tut */
-.nav a:not(.btn), .nav .nav-link{
-  display:inline-flex; align-items:center; gap:6px;
-  padding:8px 0; opacity:.9;
-}
+.nav a:not(.btn), .nav .nav-link{ display:inline-flex; align-items:center; gap:6px; padding:8px 0; opacity:.9; text-decoration:none; color:var(--porcelain); }
 .nav a:hover, .nav .nav-link:hover{ opacity:1; }
+.nav .btn{ padding:10px 16px !important; line-height:1; border-radius:999px; }
+.nav .btn.btn-outline{ border:1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.04); }
+.nav .btn.btn-outline:hover{ background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.42); }
 
+/* Dropdown */
 .nav-item.dropdown{ position:relative; }
 .caret{ font-size:12px; opacity:.7; }
-
-/* Dropdown panel */
 .nav .menu{
-  position:absolute;
-  top: calc(100% + 10px); right: 0;
-  display:flex; flex-direction:column; gap:4px;
-  min-width:220px; padding:10px;
+  position:absolute; top: calc(100% + 10px); right:0;
+  display:flex; flex-direction:column; gap:4px; min-width:220px; padding:10px;
   background: rgba(22,22,22,.85);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:12px;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border:1px solid rgba(255,255,255,.08); border-radius:12px;
   box-shadow:0 12px 40px rgba(0,0,0,.35);
-  opacity:0; transform: translateY(-6px);
-  pointer-events:none;
-  transition: opacity .18s ease, transform .18s ease;
-  z-index: 10000;
+  opacity:0; transform: translateY(-6px); pointer-events:none;
+  transition: opacity .18s ease, transform .18s ease; z-index:10000;
 }
-
-/* Hover köprüsü: tetikçi ile panel arasında boşlukta hover’ı tut */
-.nav .menu::before{
-  content:"";
-  position:absolute;
-  left:-12px; right:-12px;      /* geniş tolerans */
-  top:-22px; height:24px;       /* köprü alanı */
-  pointer-events:auto;
-}
-
-/* Açık halde */
+.nav .menu::before{ content:""; position:absolute; left:-12px; right:-12px; top:-22px; height:24px; pointer-events:auto; }
 .nav .menu.open,
-.nav-item.dropdown:hover .menu{
-  opacity:1; transform: translateY(0); pointer-events:auto;
-}
-
-.nav .menu a{
-  padding:10px 12px; border-radius:8px; white-space:nowrap; opacity:.9;
-}
+.nav-item.dropdown:hover .menu{ opacity:1; transform: translateY(0); pointer-events:auto; }
+.nav .menu a{ padding:10px 12px; border-radius:8px; white-space:nowrap; opacity:.9; color:var(--porcelain); text-decoration:none; }
 .nav .menu a:hover{ background:rgba(255,255,255,.06); opacity:1; }
 
-@media (max-width: 720px){
-  .nav{ gap:14px; }
+/* ===== Hamburger (mobile only) ===== */
+.hamburger{
+  display:none; width:48px; height:48px;
+  border-radius:12px; border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04); color:var(--porcelain);
+}
+.hamburger span{ display:block; width:18px; height:2px; background:currentColor; margin:3px auto; }
+
+/* ===== Mobile Drawer ===== */
+.mnav{
+  position: fixed; top: calc(var(--header-h) + var(--safe-top)); left:0; right:0;
+  transform: translateY(-8px); opacity:0; pointer-events:none;
+  transition: opacity .2s ease, transform .2s ease;
+}
+.mnav.on{ transform: translateY(0); opacity:1; pointer-events:auto; }
+.mnav-body{
+  margin: 0 auto; width: min(720px, 96vw);
+  background: rgba(12,12,12,.96);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px; padding:12px;
+  display:flex; flex-direction:column; gap:6px;
+}
+.mnav-body a{ color:var(--porcelain); text-decoration:none; padding:10px 12px; border-radius:10px; }
+.mnav-body a:hover{ background: rgba(255,255,255,.06); }
+.mnav-title{ font-weight:600; margin-top:4px; }
+.mnav-sub{ display:flex; flex-wrap:wrap; gap:6px; padding: 2px 2px 8px; }
+.mnav-sub a{ background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06); }
+
+.mnav-backdrop{
+  position: fixed; inset: calc(var(--header-h) + var(--safe-top)) 0 0 0;
+  background: transparent; border:0;
 }
 
-/* Contact button nav içinde daha ferah dursun */
-.nav .btn{
-  padding:10px 16px !important;
-  line-height:1;
-  border-radius:999px;
+/* ===== Responsive ===== */
+@media (max-width: 768px){
+  :root{ --header-h: var(--header-h-mobile); }
+  .hamburger{ display:grid; place-items:center; }
+  .nav{ display:none; }                 /* desktop nav gizle */
 }
-.nav .btn.btn-outline{
-  border:1px solid rgba(255,255,255,.28);
-  background: rgba(255,255,255,.04);
-}
-.nav .btn.btn-outline:hover{
-  background: rgba(255,255,255,.10);
-  border-color: rgba(255,255,255,.42);
+
+@media (min-width: 769px){
+  :root{ --header-h: var(--header-h-desktop); }
+  .hamburger{ display:none; }
+  .mnav, .mnav-backdrop{ display:none; }
 }

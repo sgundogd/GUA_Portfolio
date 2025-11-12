@@ -3,7 +3,8 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import "../styles/header.css";
 
 export default function Header() {
-  const [projOpen, setProjOpen] = useState(false);
+  const [projOpen, setProjOpen] = useState(false);   // desktop dropdown
+  const [menuOpen, setMenuOpen] = useState(false);   // mobile drawer
   const [isTouch, setIsTouch] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -11,7 +12,7 @@ export default function Header() {
   const dropdownRef = useRef(null);
   const { pathname, search } = useLocation();
 
-  /* Cihaz tipi (hover var mı?) */
+  /* Touch/hover algısı */
   useEffect(() => {
     if (typeof window === "undefined" || !window.matchMedia) return;
     const mq = window.matchMedia("(hover: none)");
@@ -21,25 +22,33 @@ export default function Header() {
     return () => mq.removeEventListener?.("change", apply);
   }, []);
 
-  /* Scroll'a göre header opaklığı */
+  /* Scroll opaklığı */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* Route değişince kapat */
-  useEffect(() => { setProjOpen(false); }, [pathname, search]);
+  /* Route değişince her şeyi kapat */
+  useEffect(() => {
+    setProjOpen(false);
+    setMenuOpen(false);
+  }, [pathname, search]);
 
   /* ESC ile kapat */
   useEffect(() => {
-    const onKey = (e) => { if (e.key === "Escape") setProjOpen(false); };
+    const onKey = (e) => {
+      if (e.key === "Escape") {
+        setProjOpen(false);
+        setMenuOpen(false);
+      }
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  /* Dışarı tıklayınca kapat */
+  /* Desktop dropdown dış tık ile kapat */
   useEffect(() => {
     if (!projOpen) return;
     const onDoc = (e) => {
@@ -51,21 +60,14 @@ export default function Header() {
     return () => document.removeEventListener("pointerdown", onDoc);
   }, [projOpen]);
 
-  /* Unmount: bekleyen kapatma timer'ını temizle */
   useEffect(() => {
     return () => { if (closeTimer.current) clearTimeout(closeTimer.current); };
   }, []);
 
-  /* Klavye erişilebilirliği: fokus dışına çıkınca kapat */
   const onBlurDropdown = (e) => {
     if (!e.currentTarget.contains(e.relatedTarget)) setProjOpen(false);
   };
-
-  /* Hover açık/kapalı (küçük gecikme ile) */
-  const openNow = () => {
-    if (closeTimer.current) clearTimeout(closeTimer.current);
-    setProjOpen(true);
-  };
+  const openNow = () => { if (closeTimer.current) clearTimeout(closeTimer.current); setProjOpen(true); };
   const closeWithDelay = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     closeTimer.current = setTimeout(() => setProjOpen(false), 120);
@@ -74,13 +76,25 @@ export default function Header() {
   return (
     <header className={`header ${scrolled ? "header--scrolled" : ""}`}>
       <div className="container header-inner">
+        {/* MOBILE: Hamburger */}
+        <button
+          className="hamburger"
+          aria-label="Open menu"
+          aria-expanded={menuOpen ? "true" : "false"}
+          onClick={() => setMenuOpen((v) => !v)}
+        >
+          <span /><span /><span />
+        </button>
+
+        {/* Logo */}
         <Link to="/" className="brand" aria-label="Go to homepage">
           <span className="brand-mark">GUA</span>
           <span className="brand-sub">Design</span>
         </Link>
 
+        {/* DESKTOP NAV */}
         <nav className="nav" aria-label="Primary">
-          {/* Projects: desktop’ta hover, touch’ta tap ile aç/kapat */}
+          {/* Projects: desktop’ta hover, touch’ta tap-toggle */}
           <div
             className="nav-item dropdown"
             ref={dropdownRef}
@@ -96,10 +110,7 @@ export default function Header() {
               aria-expanded={projOpen ? "true" : "false"}
               aria-controls="projects-menu"
               onClick={(e) => {
-                if (isTouch) {
-                  e.preventDefault();               // telefonda menü aç/kapat
-                  setProjOpen((v) => !v);
-                }
+                if (isTouch) { e.preventDefault(); setProjOpen((v) => !v); }
               }}
             >
               Projects <span className="caret">▾</span>
@@ -111,21 +122,11 @@ export default function Header() {
               role="menu"
               aria-hidden={projOpen ? "false" : "true"}
             >
-              <NavLink to="/projects/hotel" role="menuitem" onClick={() => setProjOpen(false)}>
-                Hotel
-              </NavLink>
-              <NavLink to="/projects/business" role="menuitem" onClick={() => setProjOpen(false)}>
-                Business
-              </NavLink>
-              <NavLink to="/projects/home" role="menuitem" onClick={() => setProjOpen(false)}>
-                Home
-              </NavLink>
-              <NavLink to="/projects/cafe-restaurant" role="menuitem" onClick={() => setProjOpen(false)}>
-                Cafe / Restaurant
-              </NavLink>
-              <NavLink to="/projects/vision" role="menuitem" onClick={() => setProjOpen(false)}>
-                GUA Vision
-              </NavLink>
+              <NavLink to="/projects/hotel" role="menuitem" onClick={() => setProjOpen(false)}>Hotel</NavLink>
+              <NavLink to="/projects/business" role="menuitem" onClick={() => setProjOpen(false)}>Business</NavLink>
+              <NavLink to="/projects/home" role="menuitem" onClick={() => setProjOpen(false)}>Home</NavLink>
+              <NavLink to="/projects/cafe-restaurant" role="menuitem" onClick={() => setProjOpen(false)}>Cafe / Restaurant</NavLink>
+              <NavLink to="/projects/vision" role="menuitem" onClick={() => setProjOpen(false)}>GUA Vision</NavLink>
             </div>
           </div>
 
@@ -134,6 +135,25 @@ export default function Header() {
           <Link to="/contact" className="btn btn-outline">Contact</Link>
         </nav>
       </div>
+
+      {/* MOBILE DRAWER */}
+      <div className={`mnav ${menuOpen ? "on" : ""}`} aria-hidden={menuOpen ? "false" : "true"}>
+        <div className="mnav-body">
+          <NavLink to="/projects" className="mnav-title" onClick={() => setMenuOpen(false)}>Projects</NavLink>
+          <div className="mnav-sub">
+            <NavLink to="/projects/hotel" onClick={() => setMenuOpen(false)}>Hotel</NavLink>
+            <NavLink to="/projects/business" onClick={() => setMenuOpen(false)}>Business</NavLink>
+            <NavLink to="/projects/home" onClick={() => setMenuOpen(false)}>Home</NavLink>
+            <NavLink to="/projects/cafe-restaurant" onClick={() => setMenuOpen(false)}>Cafe / Restaurant</NavLink>
+            <NavLink to="/projects/vision" onClick={() => setMenuOpen(false)}>GUA Vision</NavLink>
+          </div>
+
+          <NavLink to="/products" onClick={() => setMenuOpen(false)}>Furniture</NavLink>
+          <NavLink to="/about" onClick={() => setMenuOpen(false)}>About</NavLink>
+          <Link to="/contact" className="btn btn-outline" onClick={() => setMenuOpen(false)}>Contact</Link>
+        </div>
+      </div>
+      {menuOpen && <button className="mnav-backdrop" aria-label="Close menu" onClick={() => setMenuOpen(false)} />}
     </header>
   );
 }
