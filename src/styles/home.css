@@ -139,7 +139,6 @@
   /* İstersen metni sadece 2 satırla sınırlayabiliriz: */
   .wwd-intro {
     display: -webkit-box;
-    -webkit-line-clamp: 2;   /* 2 satırla sınırla */
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
