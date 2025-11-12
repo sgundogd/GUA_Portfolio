@@ -560,10 +560,10 @@ function ServiceTile({ icon: Icon, title, desc, delay = 0 }) {
 }*/
 /* ------------------------ PRODUCTS ---------------------------- */
 const productItems = [
-  { title: "Alaaddin Lounge Chair", tag: "Customisable dimensions & finishes", img: "/alaaddin.png" },
-  { title: "Mossi Side Table",      tag: "Made to order",                      img: "/prod-luma.jpg" },
-  { title: "Pablo Chair",           tag: "Option for COM/finish",              img: "/pablo.png" },
-  { title: "Oxa Dining",            tag: "Sizes on request",                   img: "/oxa-3 copy.jpg" },
+  { title: "Alaaddin Lounge Chair", tag: "", img: "/alaaddin.png" },
+  { title: "Mossi Side Table",      tag: "",                      img: "/prod-luma.jpg" },
+  { title: "Pablo Chair",           tag: "",              img: "/pablo.png" },
+  { title: "Oxa Dining",            tag: "",                   img: "/oxa-3 copy.jpg" },
 ];
 
 function Products() {
@@ -605,17 +605,53 @@ function Products() {
 
 /* ------------------------ PROJECTS ---------------------------- */
 function Projects() {
-  // göstermek istediğin projelerin slug'larını burada belirt
-  const featuredSlugs = [
-    "bodrum-living-area",
-    "restaurant-interior",
+const featuredKeys = [
+    "mugla-villa",       // kategori/slug
+    "restaurant-interior",    // sadece slug → kategorisi otomatik bulunur
     "fashion-boutique",
-    "mugla-villa" // başka slug da ekleyebilirsin
+    "bodrum-living-area"
   ];
 
-  // PROJECTS_DATA içinden bu slug’lara karşılık gelen projeleri bul
-  const allProjects = Object.values(PROJECTS_DATA).flatMap((cat) => cat.projects);
-  const projectItems = allProjects.filter((p) => featuredSlugs.includes(p.slug));
+  // Kategorileri ve projeleri tek yerden erişmek için yardımcı yapılar
+  const categories = Object.keys(PROJECTS_DATA); // ör: ["hotel", "home", "office", ...]
+  const projectsByCategory = PROJECTS_DATA;
+
+  // Tek slug verildiğinde tüm kategoriler içinde bu slug'ı arayan yardımcı
+  const findBySlugAllCats = (slug) => {
+    for (const cat of categories) {
+      const hit = projectsByCategory[cat]?.projects?.find(p => p.slug === slug);
+      if (hit) return { cat, project: hit };
+    }
+    return null;
+  };
+
+  // featuredKeys sırasına göre tek tek çöz ve sıralı diziyi oluştur
+  const featuredItems = featuredKeys.map((key) => {
+    // "cat/slug" mi?
+    if (key.includes("/")) {
+      const [cat, slug] = key.split("/");
+      const hit = projectsByCategory[cat]?.projects?.find(p => p.slug === slug);
+      if (hit) {
+        return {
+          cat,
+          project: hit,
+          path: `/projects/${cat}/${hit.slug}`
+        };
+      }
+      return null; // bulunamazsa atla
+    } else {
+      // sadece slug verildiyse tüm kategorilerde ara
+      const res = findBySlugAllCats(key);
+      if (res) {
+        return {
+          cat: res.cat,
+          project: res.project,
+          path: `/projects/${res.cat}/${res.project.slug}`
+        };
+      }
+      return null;
+    }
+  }).filter(Boolean); // olmayanları ayıkla
 
   return (
     <section
@@ -623,7 +659,7 @@ function Projects() {
       className="section section-dark"
       style={{ minHeight: "100vh", display: "grid", alignContent: "center" }}
     >
-      {/* Başlık alanı */}
+      {/* Başlık alanı (senin ortak section-head yapınla uyumlu) */}
       <div className="container section-head">
         <span className="eyebrow">PROJECTS</span>
 
@@ -639,15 +675,20 @@ function Projects() {
         </p>
       </div>
 
-      {/* Kartlar */}
+      {/* Kartlar — seçtiğin sırada ve doğru path ile */}
       <div className="grid container" style={{ marginTop: 6 }}>
-        {projectItems.map((p, i) => (
-          <Link key={i} to={`/projects/${p.slug}`} className="card card-dark">
+        {featuredItems.map((item) => (
+          <Link key={`${item.cat}/${item.project.slug}`} to={item.path} className="card card-dark">
             <div className="card-media">
-              <img src={p.cover} alt={p.title} loading="lazy" decoding="async" />
+              <img
+                src={item.project.cover}
+                alt={item.project.title}
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <div className="card-body">
-              <h3>{p.title}</h3>
+              <h3>{item.project.title}</h3>
             </div>
           </Link>
         ))}
