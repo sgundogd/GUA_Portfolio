@@ -197,14 +197,9 @@ function WhoWeAre() {
 
           {/* Aksiyon */}
           <div className="wwd-cta">
-            <a
-              href="mailto:sevgi.gundogdu@gundogduahsap.com"
-              className="btn btn-gold"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Start Your Brief
-            </a>
+            <Link className="btn btn-gold" to="/about">
+              About Us
+            </Link>
             <Link className="btn btn-ghost" to="/projects">
               View Our Projects
             </Link>
