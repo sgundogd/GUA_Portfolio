@@ -7,10 +7,57 @@ export const PROJECTS_DATA = {
     title: "Hotels",
     desc: "Konaklama & hospitality projeleri.",
     projects: [
+            {
+        slug: "nirvana-dolce-vita",
+        title: "Nirvana Dolce Vita",
+        cover: "/projects/hotel/nirvana/1.avif",
+        images: [
+          "/projects/hotel/nirvana/1.avif",
+          "/projects/hotel/nirvana/2.avif",
+          "/projects/hotel/nirvana/3.avif",
+          "/projects/hotel/nirvana/4.avif",
+        ],
+      },
+
       {
+        slug: "kaya-palazzo",
+        title: "Kaya Palazzo Golf Resort",
+        cover: "/projects/hotel/kaya/3.jpg",
+        images: [
+          "/projects/hotel/kaya/1.jpg",
+          "/projects/hotel/kaya/2.avif",
+          "/projects/hotel/kaya/3.jpg",
+          "/projects/hotel/kaya/4.jpg",
+          "/projects/hotel/kaya/5.avif",
+          "/projects/hotel/kaya/6.avif",
+        ],
+      },
+      {
+        slug: "titanic-golf-belek",
+        title: "Titanic Golf Belek",
+        cover: "/projects/hotel/titanic/9.jpg",
+        images: [
+          
+          "/projects/hotel/titanic/6.jpg",
+          "/projects/hotel/titanic/7.jpg",
+          "/projects/hotel/titanic/8.avif",
+          "/projects/hotel/titanic/9.jpg",
+          "/projects/hotel/titanic/10.avif",
+          "/projects/hotel/titanic/11.jpg",
+          "/projects/hotel/titanic/12.avif",
+          "/projects/hotel/titanic/13.avif",
+          "/projects/hotel/titanic/14.avif",
+          "/projects/hotel/titanic/1.avif",
+          "/projects/hotel/titanic/2.jpg",
+          "/projects/hotel/titanic/3.avif",
+          "/projects/hotel/titanic/4.avif",
+          "/projects/hotel/titanic/5.avif",
+        ],
+      },
+            {
         slug: "sheraton-batumi",
         title: "Sheraton Batumi Hotel",
-        cover: "/projects/hotel/sheraton/cover.jpg",
+        cover: "/projects/hotel/sheraton/3.jpg",
         images: [
           "/projects/hotel/sheraton/1.jpg",
           "/projects/hotel/sheraton/2.jpg",
@@ -18,25 +65,7 @@ export const PROJECTS_DATA = {
           "/projects/hotel/sheraton/4.jpg",
         ],
       },
-      {
-        slug: "jade-business",
-        title: "Jade Business Hotel",
-        cover: "/projects/hotel/jade/cover.jpg",
-        images: [
-          "/projects/hotel/jade/1.jpg",
-          "/projects/hotel/jade/2.jpg",
-          "/projects/hotel/jade/3.jpg",
-        ],
-      },
-      {
-        slug: "marina-boutique",
-        title: "Marina Boutique",
-        cover: "/projects/hotel/marina/cover.jpg",
-        images: [
-          "/projects/hotel/marina/1.jpg",
-          "/projects/hotel/marina/2.jpg",
-        ],
-      },
+
     ],
   },
 

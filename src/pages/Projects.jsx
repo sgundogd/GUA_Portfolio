@@ -7,7 +7,7 @@ export default function Projects() {
   const active = (params.get("cat") || "").toLowerCase();
 
   const CATEGORIES = [
-    { key: "hotel",           title: "Hotels",            to: "/projects/hotel",           img: "/projects/hotel.jpg",  blurb: "Hospitality & accommodation spaces",            icon: HotelIcon },
+    { key: "hotel",           title: "Hotels",            to: "/projects/hotel",           img: "/projects/hotel.avif",  blurb: "Hospitality & accommodation spaces",            icon: HotelIcon },
     { key: "business",        title: "Business",          to: "/projects/business",        img: "/projects/office.jpg", blurb: "Corporate and office interiors",                icon: BusinessIcon },
     { key: "home",            title: "Home",              to: "/projects/home",            img: "/projects/home.jpg",   blurb: "Luxury residential and living spaces",          icon: HomeIcon },
     { key: "cafe-restaurant", title: "Cafe / Restaurant", to: "/projects/cafe-restaurant", img: "/projects/cafe.jpg",   blurb: "Dining, lounge, and F&B environments",          icon: CafeIcon },
