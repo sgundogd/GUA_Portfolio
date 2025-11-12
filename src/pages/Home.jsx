@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import "../app.css";
 import "../styles/home.css";
+import { PROJECTS_DATA } from "../data/projectsData.js";
 
 /* ---------------------------- HERO ---------------------------- */
 function Hero() {
@@ -46,40 +47,73 @@ function useReveal() {
   }, []);
   return { ref, show };
 }
-
-/* ========== REFERENCES (3D EMBOSSED BAND) — GAPLESS MARQUEE ========== */
+/* ========== REFERENCES (3D BAND) — GAPLESS RAF SCROLLER ========== */
 function References3D() {
   const logos = [
-    { name: "Açı Koleji",     src: "/logo/açı.png" },
-    { name: "Ağaoğlu",     src: "/logo/agaoglu.png" },
-    { name: "Atlas Üniversitesi",     src: "/logo/atlas.png" },
-    { name: "Avansas",     src: "/logo/avansas.png" },
-    { name: "Madam Coco",     src: "/logo/coco.png" },
-    { name: "Hilton",     src: "/logo/hilton.png" },
+    { name: "Açı Koleji",        src: "/logo/açı.png" },
+    { name: "Ağaoğlu",           src: "/logo/agaoglu.png" },
+    { name: "Atlas Üniversitesi",src: "/logo/atlas.png" },
+    { name: "Avansas",           src: "/logo/avansas.png" },
+    { name: "Madam Coco",        src: "/logo/coco.png" },
+    { name: "Hilton",            src: "/logo/hilton.png" },
     { name: "Işık Okulları",     src: "/logo/ışık.png" },
-    { name: "Kavan Yapı",     src: "/logo/kavan.png" },
-    { name: "Kemer Country Club",     src: "/logo/kemer.png" },
-    { name: "Koç Hoilding",     src: "/logo/koç.png" },
-    { name: "Koton",     src: "/logo/koton.png" },
-    { name: "Merit",     src: "/logo/merit.png" },
-    { name: "Nef",     src: "/logo/nef.webp" },
-     { name: "LC Waikiki",     src: "/logo/lcw.png" },
-    { name: "Şua İnşaat",     src: "/logo/şua.png" },
-    { name: "Huqqabaz",     src: "/logo/huqq.png" },
+    { name: "Kavan Yapı",        src: "/logo/kavan.png" },
+    { name: "Kemer Country Club",src: "/logo/kemer.png" },
+    { name: "Koç Holding",       src: "/logo/koç.png" },
+    { name: "Koton",             src: "/logo/koton.png" },
+    { name: "Merit",             src: "/logo/merit.png" },
+    { name: "Nef",               src: "/logo/nef.webp" },
+    { name: "LC Waikiki",        src: "/logo/lcw.png" },
+    { name: "Şua İnşaat",        src: "/logo/şua.png" },
+    { name: "Huqqabaz",          src: "/logo/huqq.png" },
   ];
 
-  // Her group içinde logoları 3 kez tekrar et (genişlik daima yeterli olsun)
+  // Genişlik garanti olsun diye her grupta 3x tekrar
   const groupItems = [...logos, ...logos, ...logos];
 
-  const Group = ({ idx }) => (
-    <div className="refs3d-group" aria-hidden={idx !== 0}>
-      {groupItems.map((l, i) => (
-        <div key={`${idx}-${i}`} className="refs3d-item" role="listitem" title={l.name}>
-          <img src={l.src} alt={l.name} />
-        </div>
-      ))}
-    </div>
-  );
+  const trackRef = useRef(null);
+  const groupRef = useRef(null);
+  const rafId = useRef(null);
+  const lastTs = useRef(0);
+  const pos = useRef(0);          // mevcut kaydırma (px)
+  const bandWidth = useRef(0);    // tek grubun px genişliği
+  const running = useRef(true);   // hover’da durduracağız
+
+  // hız kontrolü (px/sn) — dilersen CSS değişkeninden de okuyabilirsin
+  const SPEED = 60;  // 40-90 arası güzel
+
+  useEffect(() => {
+    const measure = () => {
+      if (!groupRef.current) return;
+      bandWidth.current = groupRef.current.getBoundingClientRect().width;
+    };
+    measure();
+    window.addEventListener("resize", measure);
+
+    const step = (ts) => {
+      if (!lastTs.current) lastTs.current = ts;
+      const dt = (ts - lastTs.current) / 1000; // saniye
+      lastTs.current = ts;
+
+      if (running.current && bandWidth.current > 0) {
+        pos.current += SPEED * dt;
+        // bir grup genişliğini aşınca başa al (görünmez mod)
+        if (pos.current >= bandWidth.current) {
+          pos.current -= bandWidth.current;
+        }
+        if (trackRef.current) {
+          trackRef.current.style.transform = `translate3d(${-pos.current}px,0,0)`;
+        }
+      }
+      rafId.current = requestAnimationFrame(step);
+    };
+
+    rafId.current = requestAnimationFrame(step);
+    return () => {
+      cancelAnimationFrame(rafId.current);
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
 
   return (
     <section className="section refs3d">
@@ -89,11 +123,31 @@ function References3D() {
           <h2>Trusted by partners</h2>
         </div>
 
-        <div className="refs3d-band">
+        <div
+          className="refs3d-band"
+          onMouseEnter={() => (running.current = false)}
+          onMouseLeave={() => (running.current = true)}
+          onTouchStart={() => (running.current = false)}
+          onTouchEnd={() => (running.current = true)}
+        >
           <div className="refs3d-vignette" aria-hidden />
-          <div className="refs3d-track marquee" role="list" aria-label="Partner logos scrolling marquee">
-            <Group idx={0} />
-            <Group idx={1} />
+
+          {/* track iki eş grup taşır; transform'ı buna uyguluyoruz */}
+          <div className="refs3d-track" ref={trackRef} role="list" aria-label="Partner logos">
+            <div className="refs3d-group" ref={groupRef} aria-hidden="false">
+              {groupItems.map((l, i) => (
+                <div key={`g0-${i}`} className="refs3d-item" role="listitem" title={l.name}>
+                  <img src={l.src} alt={l.name} />
+                </div>
+              ))}
+            </div>
+            <div className="refs3d-group" aria-hidden="true">
+              {groupItems.map((l, i) => (
+                <div key={`g1-${i}`} className="refs3d-item" role="listitem" title={l.name}>
+                  <img src={l.src} alt={l.name} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -104,6 +158,7 @@ function References3D() {
     </section>
   );
 }
+
 
 /* ------------------------ WHO WE ARE (ENGLISH TEXTS) -------------------------- */
 
@@ -142,8 +197,17 @@ function WhoWeAre() {
 
           {/* Aksiyon */}
           <div className="wwd-cta">
-            <Link className="btn btn-gold" to="/contact">Start Your Brief</Link>
-            <Link className="btn btn-ghost" to="/projects">View Our Projects</Link>
+            <a
+              href="mailto:sevgi.gundogdu@gundogduahsap.com"
+              className="btn btn-gold"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Start Your Brief
+            </a>
+            <Link className="btn btn-ghost" to="/projects">
+              View Our Projects
+            </Link>
           </div>
         </div>
 
@@ -154,7 +218,9 @@ function WhoWeAre() {
           </video>
           <div className="wwd-glass">
             <span style={{ fontWeight: 600 }}>GUA Design</span>
-            <span className="muted" style={{ fontSize: 14 }}>Design · Production · Installation</span>
+            <span className="muted" style={{ fontSize: 14 }}>
+              Design · Production · Installation
+            </span>
           </div>
         </div>
       </div>
@@ -162,69 +228,79 @@ function WhoWeAre() {
   );
 }
 
-/* ================= our services (carousel) ================= */
 
+/* ================= our services (carousel) ================= */
 function OurServices() {
   const slides = [
-    {
-      key: "design",
-      title: "Design & Concept Development",
-      //desc: "We translate ideas into refined concepts, blending aesthetics with function from the very start.",
-      img: "/home/services/1.png",
-    },
-    {
-      key: "craft",
-      title: "Production & Craftsmanship",
-      //desc: "Every piece is made-to-measure with precision, using the finest materials and expert craftsmanship.",
-      img: "/home/services/2.png",
-    },
-    {
-      key: "install",
-      title: "Delivery & Installation",
-      //desc: "From packing to on-site setup, we ensure seamless delivery and flawless installation worldwide.",
-      img: "/home/services/5.png",
-    },
-    {
-      key: "pm",
-      title: "Project Management",
-      //desc: "A dedicated team oversees every phase, guaranteeing on-time execution and consistent quality.",
-      img: "/home/services/4.png",
-    },
+    { key: "design",  title: "Design & Concept Development", img: "/home/services/1.png" },
+    { key: "craft",   title: "Production & Craftsmanship",   img: "/home/services/2.png" },
+    { key: "install", title: "Delivery & Installation",      img: "/home/services/5.png" },
+    { key: "pm",      title: "Project Management",           img: "/home/services/4.png" },
   ];
 
-  const [i, setI] = useState(0);
   const len = slides.length;
+  const [i, setI] = useState(0);
+
+  // timers & state refs
   const timer = useRef(null);
+  const firstTO = useRef(null);
+  const isInViewRef = useRef(false);
+
+  // dom & gesture
   const viewportRef = useRef(null);
   const touchRef = useRef({ x: 0, y: 0, active: false });
 
+  // durations
+  const FIRST_MS = 2000;   // görünür olur olmaz ilk geçiş
+  const AUTO_MS  = 3000;  // sonraki otomatik süre
+
+  // navigation
   const go = (n) => setI((prev) => (prev + n + len) % len);
   const to = (idx) => setI(((idx % len) + len) % len);
 
-  const startAuto = () => {
-    if (window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches) return;
-    stopAuto();
-    timer.current = window.setInterval(() => go(1), 4500);
-  };
+  // autoplay controls
   const stopAuto = () => {
-    if (timer.current) clearInterval(timer.current);
+    if (timer.current)  clearInterval(timer.current);
+    if (firstTO.current) clearTimeout(firstTO.current);
     timer.current = null;
+    firstTO.current = null;
   };
 
+  const startAuto = () => {
+    // azaltılmış hareket tercihinde veya görünür değilken çalıştırma
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches) return;
+    if (!isInViewRef.current) return;
+
+    stopAuto(); // sıfırla
+    firstTO.current = window.setTimeout(() => {
+      go(1); // hızlı ilk adım
+      timer.current = window.setInterval(() => go(1), AUTO_MS);
+    }, FIRST_MS);
+  };
+
+  // görünürlük: yalnızca görünürken çalış
   useEffect(() => {
     const node = viewportRef.current;
     if (!node) return;
 
     const io = new IntersectionObserver(
-      ([entry]) => (entry.isIntersecting ? startAuto() : stopAuto()),
-      { threshold: 0.3 }
+      ([entry]) => {
+        isInViewRef.current = entry.isIntersecting;
+        if (entry.isIntersecting) startAuto();
+        else stopAuto();
+      },
+      {
+        threshold: 0.01,
+        root: null,
+        rootMargin: "200px 0px", // ekrana 200px kala başlat
+      }
     );
     io.observe(node);
 
     const onVis = () => (document.hidden ? stopAuto() : startAuto());
     document.addEventListener("visibilitychange", onVis);
 
-    startAuto();
+    // mount’ta OTOMATİK BAŞLATMA yok — sadece görünür olunca
     return () => {
       stopAuto();
       io.disconnect();
@@ -232,15 +308,17 @@ function OurServices() {
     };
   }, []);
 
+  // klavye kısayolları
   useEffect(() => {
     const onKey = (e) => {
-      if (e.key === "ArrowLeft") go(-1);
+      if (e.key === "ArrowLeft")  go(-1);
       if (e.key === "ArrowRight") go(1);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  // touch swipe
   const onTouchStart = (e) => {
     const t = e.touches[0];
     touchRef.current = { x: t.clientX, y: t.clientY, active: true };
@@ -252,9 +330,7 @@ function OurServices() {
     const t = e.changedTouches[0];
     const dx = t.clientX - t0.x;
     const dy = t.clientY - t0.y;
-    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
-      go(dx < 0 ? 1 : -1);
-    }
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
     touchRef.current.active = false;
     startAuto();
   };
@@ -262,15 +338,14 @@ function OurServices() {
   return (
     <section className="why why--services">
       <div className="container" style={{ marginBottom: 18 }}>
-        <span className="eyebrow">OUR SERVICES</span>
-        <h2 className="why-title">From concept to completion</h2>
+        <h2 className="why-title">OUR SERVICES</h2>
       </div>
 
       <div
         className="why-viewport"
         ref={viewportRef}
         onMouseEnter={stopAuto}
-        onMouseLeave={startAuto}
+        onMouseLeave={() => isInViewRef.current && startAuto()}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
         role="region"
@@ -294,15 +369,15 @@ function OurServices() {
                 <img
                   src={s.img}
                   alt={s.title}
-                  loading="lazy"
-                  decoding="async"
+                  loading={idx === 0 ? "eager" : "lazy"}
+                  decoding={idx === 0 ? "sync" : "async"}
                 />
               </div>
 
               <div className="why-overlay" />
               <div className="why-caption">
                 <h3>{s.title}</h3>
-                <p className="muted">{s.desc}</p>
+                {/* <p className="muted">{s.desc}</p> */}
               </div>
 
               <button
@@ -343,6 +418,7 @@ function OurServices() {
     </section>
   );
 }
+
 
 
 
@@ -528,20 +604,26 @@ function Products() {
 }
 
 /* ------------------------ PROJECTS ---------------------------- */
-const projectItems = [
-  { title: "Palm Jumeirah Residence", img: "/otel-projesi-model-1-min.jpg" },
-  { title: "Downtown Dubai Penthouse", img: "/otel-dekorasyon-fikirleri-10.jpg" },
-  { title: "Bodrum Seafront Villa",    img: "/Sheraton-Batumi-Hotel-13-min.jpg" },
-  { title: "Modern Istanbul Flat",     img: "/otel-dekor-tadilat-11.jpg" },
-];
-
 function Projects() {
+  // göstermek istediğin projelerin slug'larını burada belirt
+  const featuredSlugs = [
+    "bodrum-living-area",
+    "restaurant-interior",
+    "fashion-boutique",
+    "mugla-villa" // başka slug da ekleyebilirsin
+  ];
+
+  // PROJECTS_DATA içinden bu slug’lara karşılık gelen projeleri bul
+  const allProjects = Object.values(PROJECTS_DATA).flatMap((cat) => cat.projects);
+  const projectItems = allProjects.filter((p) => featuredSlugs.includes(p.slug));
+
   return (
     <section
       id="projects"
       className="section section-dark"
       style={{ minHeight: "100vh", display: "grid", alignContent: "center" }}
     >
+      {/* Başlık alanı */}
       <div className="container section-head">
         <span className="eyebrow">PROJECTS</span>
 
@@ -557,18 +639,22 @@ function Projects() {
         </p>
       </div>
 
+      {/* Kartlar */}
       <div className="grid container" style={{ marginTop: 6 }}>
         {projectItems.map((p, i) => (
-          <div key={i} className="card card-dark">
-            <div className="card-media"><img src={p.img} alt={p.title} /></div>
-            <div className="card-body"><h3>{p.title}</h3></div>
-          </div>
+          <Link key={i} to={`/projects/${p.slug}`} className="card card-dark">
+            <div className="card-media">
+              <img src={p.cover} alt={p.title} loading="lazy" decoding="async" />
+            </div>
+            <div className="card-body">
+              <h3>{p.title}</h3>
+            </div>
+          </Link>
         ))}
       </div>
     </section>
   );
 }
-
 
 /* ------------------------ CONTACT CTA ------------------------- */
 function Contact() {
@@ -580,8 +666,8 @@ function Contact() {
           <p className="muted" style={{ fontSize: 15 }}>Share a brief or drawings. We’ll reply with options, costs and a timeline.</p>
         </div>
         <div className="contact-actions" style={{ display: "flex", gap: 12, alignItems: "center" }}>
-          <a className="btn btn-gold" href="mailto:hello@guadesign.com" style={{ fontWeight: 500 }}>Email</a>
-          <a className="btn btn-ghost" href="https://wa.me/905555555555" target="_blank" rel="noreferrer" style={{ fontWeight: 500 }}>WhatsApp</a>
+          <a className="btn btn-gold" href="mailto:sevgi.gundogdu@gundogduahsap.com" style={{ fontWeight: 500 }}>Email</a>
+          <a className="btn btn-ghost" href="https://wa.me/905536951500" target="_blank" rel="noreferrer" style={{ fontWeight: 500 }}>WhatsApp</a>
         </div>
       </div>
     </section>

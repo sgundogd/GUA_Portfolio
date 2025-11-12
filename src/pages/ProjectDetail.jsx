@@ -62,7 +62,7 @@ export default function ProjectDetail() {
         <div className="pd-bar">
           <button className="icon-btn" onClick={() => navigate(-1)} aria-label="Geri dön">←</button>
           <div style={{ flex: 1 }} />
-          <Link className="btn btn-ghost" to={`/projects/${cat}`}>Back to {PROJECTS_DATA[cat].title}</Link>
+
         </div>
 
         {/* YAZISIZ yalnızca görsellerin olduğu galeri grid */}
