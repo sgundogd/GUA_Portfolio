@@ -15,8 +15,8 @@ export default function ProjectCategory() {
             <span className="eyebrow">PROJECTS</span>
             <h1>Category not found</h1>
             <p className="muted">
-              Aradığınız kategori bulunamadı.{" "}
-              <Link className="link-ghost" to="/projects">Projects ana sayfasına dön</Link>.
+              The category you’re looking for could not be found.{" "}
+              <Link className="link-ghost" to="/projects">Return to Projects</Link>.
             </p>
           </div>
         </div>
@@ -27,19 +27,26 @@ export default function ProjectCategory() {
   return (
     <section className="section cat">
       <div className="container">
+        {/* Back button — üstte, sol köşede */}
+        <div className="cat-topbar">
+          <Link to="/projects" className="btn btn-ghost back-btn">← Back to categories</Link>
+        </div>
+
+        {/* Başlık alanı */}
         <div className="cat-head">
           <span className="eyebrow">PROJECTS</span>
           <h1>{data.title}</h1>
           <p className="muted">{data.desc}</p>
         </div>
 
+        {/* Grid */}
         <div className="cat-grid">
           {data.projects.map((p, i) => (
             <Link
               key={i}
               to={`/projects/${cat}/${p.slug}`}
               className="cat-card"
-              aria-label={`${p.title} galerisine git`}
+              aria-label={`${p.title} gallery`}
             >
               <div className="cat-media">
                 <img src={p.cover} alt={p.title} />
@@ -49,10 +56,6 @@ export default function ProjectCategory() {
               </div>
             </Link>
           ))}
-        </div>
-
-        <div className="cat-foot">
-          <Link to="/projects" className="btn btn-ghost">← Back to categories</Link>
         </div>
       </div>
     </section>

@@ -40,7 +40,7 @@ export const PROJECTS_DATA = {
     ],
   },
 
-  office: {
+  business: {
     title: "Business",
     desc: "Ofis & kurumsal alanlar.",
     projects: [

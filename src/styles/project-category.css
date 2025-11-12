@@ -59,3 +59,26 @@
   display:flex; justify-content:center;
   margin-top: 18px;
 }
+
+/* Üst kısım back butonu */
+.cat-topbar {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 12px;
+}
+
+.cat-topbar .back-btn {
+  font-size: 14px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.12);
+  color: var(--porcelain);
+  transition: background .25s ease, border-color .25s ease, transform .15s ease;
+}
+
+.cat-topbar .back-btn:hover {
+  background: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.22);
+  transform: translateY(-1px);
+}
+

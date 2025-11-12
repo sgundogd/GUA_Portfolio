@@ -111,20 +111,20 @@ export default function Header() {
               role="menu"
               aria-hidden={projOpen ? "false" : "true"}
             >
-              <NavLink to="/projects/vision" role="menuitem" onClick={() => setProjOpen(false)}>
-                GUA Vision
-              </NavLink>
               <NavLink to="/projects/hotel" role="menuitem" onClick={() => setProjOpen(false)}>
                 Hotel
               </NavLink>
-              <NavLink to="/projects/office" role="menuitem" onClick={() => setProjOpen(false)}>
-                Office
+              <NavLink to="/projects/business" role="menuitem" onClick={() => setProjOpen(false)}>
+                Business
               </NavLink>
               <NavLink to="/projects/home" role="menuitem" onClick={() => setProjOpen(false)}>
                 Home
               </NavLink>
               <NavLink to="/projects/cafe-restaurant" role="menuitem" onClick={() => setProjOpen(false)}>
                 Cafe / Restaurant
+              </NavLink>
+              <NavLink to="/projects/vision" role="menuitem" onClick={() => setProjOpen(false)}>
+                GUA Vision
               </NavLink>
             </div>
           </div>
