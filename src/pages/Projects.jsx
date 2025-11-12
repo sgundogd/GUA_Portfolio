@@ -1,17 +1,26 @@
 import { Link, useSearchParams } from "react-router-dom";
 import "../app.css";
 import "../styles/projects.css";
+import { PROJECTS_DATA } from "../data/projectsData"; // <-- EKLE
 
 export default function Projects() {
   const [params] = useSearchParams();
   const active = (params.get("cat") || "").toLowerCase();
 
+  // Vision için hedeflenecek proje (tek projeyse [0], başka birini istiyorsan slug'ını seç)
+  const VISION_TARGET =
+    PROJECTS_DATA?.vision?.projects?.[0] || null; // örn. first project
+  const visionTo = VISION_TARGET
+    ? `/projects/vision/${VISION_TARGET.slug}`
+    : "/projects/vision"; // veri yoksa kategoriye düşsün
+
   const CATEGORIES = [
     { key: "hotel",           title: "Hotels",            to: "/projects/hotel",           img: "/projects/hotel.avif",  blurb: "Hospitality & accommodation spaces",            icon: HotelIcon },
-    { key: "business",        title: "Business",          to: "/projects/business",        img: "/projects/office.jpg", blurb: "Corporate and office interiors",                icon: BusinessIcon },
-    { key: "home",            title: "Home",              to: "/projects/home",            img: "/projects/home.jpg",   blurb: "Luxury residential and living spaces",          icon: HomeIcon },
-    { key: "cafe-restaurant", title: "Cafe / Restaurant", to: "/projects/cafe-restaurant", img: "/projects/cafe.jpg",   blurb: "Dining, lounge, and F&B environments",          icon: CafeIcon },
-    { key: "vision",          title: "GUA Vision",        to: "/projects/vision",          img: "/projects/vision.jpg", blurb: "Moodboards, lookbooks, and concept direction", icon: MoodboardIcon },
+    { key: "business",        title: "Business",          to: "/projects/business",        img: "/projects/office.jpg",  blurb: "Corporate and office interiors",                icon: BusinessIcon },
+    { key: "home",            title: "Home",              to: "/projects/home",            img: "/projects/home.jpg",    blurb: "Luxury residential and living spaces",          icon: HomeIcon },
+    { key: "cafe-restaurant", title: "Cafe / Restaurant", to: "/projects/cafe-restaurant", img: "/projects/cafe.jpg",    blurb: "Dining, lounge, and F&B environments",          icon: CafeIcon },
+    // 🔻 Vision doğrudan galeriye gider
+    { key: "vision",          title: "GUA Vision",        to: visionTo,                    img: "/projects/vision.jpg",  blurb: "Moodboards, lookbooks, and concept direction", icon: MoodboardIcon },
   ];
 
   return (
@@ -46,6 +55,7 @@ export default function Projects() {
     </section>
   );
 }
+
 
 
 /* ---------- Brass line ikonlar (SVG) ---------- */

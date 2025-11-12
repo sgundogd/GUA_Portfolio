@@ -5,7 +5,7 @@
 export const PROJECTS_DATA = {
   hotel: {
     title: "Hotels",
-    desc: "Konaklama & hospitality projeleri.",
+    desc: "Luxury hospitality and accommodation projects.",
     projects: [
             {
         slug: "nirvana-dolce-vita",
@@ -71,7 +71,7 @@ export const PROJECTS_DATA = {
 
   business: {
     title: "Business",
-    desc: "Ofis & kurumsal alanlar.",
+    desc: "Corporate offices and executive workspaces.",
     projects: [
       {
         slug: "fashion-boutique",
@@ -98,7 +98,7 @@ export const PROJECTS_DATA = {
 
   home: {
     title: "Home",
-    desc: "Konut & rezidans projeleri.",
+    desc: "Private residences and high-end apartments.",
     projects: [
       {
         slug: "multi-bed-kids-room",
@@ -317,7 +317,7 @@ export const PROJECTS_DATA = {
 
   "cafe-restaurant": {
     title: "Cafe / Restaurant",
-    desc: "Yiyecek & içecek mekânları.",
+    desc: "Dining and social spaces for hospitality venues.",
     projects: [
       {
         slug: "restaurant-interior",
@@ -350,18 +350,22 @@ export const PROJECTS_DATA = {
         title: "Desert Brass Palette",
         cover: "/projects/vision/desert/cover.webp",
         images: [
-          "/projects/vision/desert/1.png",
-          "/projects/vision/desert/2.webp",
-          "/projects/vision/desert/3.webp",
-        ],
-      },
-      {
-        slug: "monochrome-serenity",
-        title: "Monochrome Serenity",
-        cover: "/projects/vision/mono/cover.webp",
-        images: [
           "/projects/vision/mono/1.png",
           "/projects/vision/mono/2.webp",
+          "/projects/vision/mono/3.webp",
+          "/projects/vision/mono/4.png",
+          "/projects/vision/mono/5.webp",
+          "/projects/vision/mono/6.png",
+          "/projects/vision/mono/7.png",
+          "/projects/vision/mono/8.webp",
+          "/projects/vision/mono/9.webp",
+          "/projects/vision/mono/10.png",
+          "/projects/vision/mono/12.webp",
+          "/projects/vision/mono/13.jpg",
+          "/projects/vision/mono/14.webp",
+          "/projects/vision/mono/15.webp",
+          "/projects/vision/mono/16.webp",
+          "/projects/vision/mono/17.webp",
         ],
       },
     ],
