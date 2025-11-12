@@ -145,6 +145,32 @@
   }
 }
 
+/* Mobilde video daha küçük görünsün */
+@media (max-width: 720px){
+  .wwd-media{
+    height: clamp(180px, 38vh, 280px);   /* yükseklik küçültüldü */
+    border-radius: 12px;
+  }
+
+  .wwd-video{
+    object-fit: cover;
+    filter: saturate(1.03) contrast(1.05);
+  }
+
+  /* cam overlay biraz küçülsün */
+  .wwd-glass{
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    padding: 8px 10px;
+    border-radius: 10px;
+  }
+
+  /* “GUA Design” yazısı da küçülsün */
+  .wwd-glass span{
+    font-size: 13px !important;
+  }
+}
 /* =========================
    WHY GUA — Carousel
 ========================= */
