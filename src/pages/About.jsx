@@ -170,7 +170,7 @@ export default function About() {
             >
               Email us
             </a>
-            <a className="btn btn-brass" href="https://wa.me/905555555555" target="_blank" rel="noreferrer">
+            <a className="btn btn-brass" href="https://wa.me/905536951500" target="_blank" rel="noreferrer">
               WhatsApp
             </a>
           </div>
