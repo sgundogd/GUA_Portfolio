@@ -27,8 +27,17 @@
   height: var(--header-h);
   display:flex; align-items:center; justify-content:space-between;
   padding: 0 clamp(16px, 4vw, 40px);
+  position: relative;                     /* yeni */
 }
 
+/* Mobilde logo ortalansın */
+@media (max-width: 768px){
+  .brand{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
 /* ===== Brand ===== */
 .brand{ display:flex; align-items:baseline; gap:.6rem; color: var(--porcelain); text-decoration:none; }
 .brand:hover{ opacity:.9; }
