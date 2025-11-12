@@ -1,193 +1,91 @@
 /* ==================================================
    ABOUT PAGE — scoped styles
-   Global tokenler ve kart stilleri app.css’de.
 ================================================== */
 
-/* ---------- Intro section ---------- */
-.about-page .section-title {
-  text-align: center;
-  max-width: 820px;
-  margin: 0 auto 40px;
-}
-.about-page .section-title p {
-  opacity: .8;
-  line-height: 1.7;
-  font-size: 16px;
-}
+.about-page h1, .about-page h2 { font-family: "Playfair Display", serif; }
 
-/* ---------- Main about grid ---------- */
-.about-page .about {
-  display: grid;
-  gap: 28px;
-  margin-bottom: 40px;
+/* HERO */
+.about-hero { padding: 56px 0 40px; }
+.hero-wrap{
+  display:grid; grid-template-columns: 1.1fr 1fr;
+  gap: clamp(20px, 4vw, 36px); align-items:center;
 }
-.about-page .about-text h2 {
-  font-family: "Playfair Display", serif;
-  font-size: clamp(24px, 3vw, 32px);
-  margin-top: 24px;
-  margin-bottom: 6px;
-}
-.about-page .about-text p {
-  opacity: .8;
-  margin-bottom: 14px;
-  max-width: 820px;
-}
+.hero-copy .eyebrow{ display:inline-block; margin-bottom:6px; }
+.hero-copy h1{ margin: 6px 0 10px; font-size: clamp(30px, 4.6vw, 48px); }
+.hero-copy p{ opacity:.85; }
+.hero-points{ margin:12px 0 14px; padding-left:18px; line-height:1.6; opacity:.9; }
+.hero-cta{ display:flex; gap:10px; margin-top:12px; }
 
-/* ---------- Quick Facts cards ---------- */
-.about-page .grid {
-  gap: 16px;
+.hero-media{
+  position:relative; border:1px solid rgba(255,255,255,.08);
+  border-radius:16px; overflow:hidden; background:#0f0f0f;
+  height: clamp(280px, 46vh, 560px);
 }
-.about-page .card.card-dark {
-  background: #111;
-  text-align: center;
-  border: 1px solid rgba(255,255,255,.06);
-  transition: transform .3s ease;
+.hero-video{ width:100%; height:100%; object-fit:cover; display:block; }
+.hero-glass{
+  position:absolute; left:12px; right:12px; bottom:12px;
+  padding:10px 12px; border-radius:12px;
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(6px); background: rgba(17,17,17,.55);
+  display:flex; justify-content:space-between; align-items:center; gap:12px;
 }
-.about-page .card.card-dark:hover {
-  transform: translateY(-3px);
-}
+.hero-glass .brand{ font-weight:600; }
 
-/* ---------- Capabilities section ---------- */
-.about-page .section-dark {
-  background: #0f0f0f;
-  padding-block: 64px;
-}
-.about-page .section-dark .section-title {
-  text-align: center;
-  margin-bottom: 28px;
-}
-.about-page .section-dark h2 {
-  font-family: "Playfair Display", serif;
-}
-.about-page .grid .card {
-  background: #121212;
-  border: 1px solid rgba(255,255,255,.06);
-  border-radius: 16px;
-  overflow: hidden;
-}
-.about-page .grid .card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.about-page .grid .card:hover img {
-  transform: scale(1.04);
-}
+/* ABOUT TEXT */
+.about{ display:grid; gap:24px; }
+.about-text p{ opacity:.85; margin-bottom:12px; }
 
-/* ---------- Process list ---------- */
-.about-page ol.list {
-  counter-reset: step;
-  list-style: none;
-  padding-left: 0;
+/* QUICK FACTS (3 sütun desktop) */
+.facts-grid{
+  display:grid; grid-template-columns: repeat(3,1fr);
+  gap:14px;
 }
-.about-page ol.list li {
-  counter-increment: step;
-  position: relative;
-  margin: 10px 0;
-  padding-left: 34px;
-  line-height: 1.7;
+.fact-card{ text-align:center; }
+.fact-val{ font-size:28px; margin:0; }
+
+/* CAPABILITIES */
+.cap-grid{
+  display:grid; grid-template-columns: repeat(4, 1fr);
+  gap:14px;
 }
-.about-page ol.list li::before {
+.cap-card{ border:1px solid rgba(255,255,255,.06); overflow:hidden; }
+.cap-card .card-media{ aspect-ratio: 4 / 3; background:#111; }
+.cap-card img{ width:100%; height:100%; object-fit:cover; transition: transform .6s ease; }
+.cap-card:hover img{ transform: scale(1.04); }
+
+/* PROCESS */
+.proc .section-title{ text-align:center; margin-bottom:10px; }
+.proc-list{ counter-reset:step; list-style:none; padding-left:0; max-width:900px; margin:0 auto; line-height:1.8; }
+.proc-list li{ counter-increment:step; position:relative; margin:10px 0; padding-left:34px; }
+.proc-list li::before{
   content: counter(step);
-  position: absolute;
-  left: 0;
-  top: 2px;
-  background: var(--brass);
-  color: #111;
-  font-weight: 600;
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 13px;
+  position:absolute; left:0; top:2px; width:22px; height:22px; border-radius:50%;
+  background: var(--brass); color:#111; font-weight:600; display:grid; place-items:center; font-size:13px;
 }
 
-/* ---------- Materials section ---------- */
-.about-page .materials {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: flex-start;
-}
-.about-page .chip {
-  border-color: rgba(255,255,255,.16);
-}
-.about-page .chip.on {
-  background: rgba(255,255,255,.08);
-}
+/* REFERENCES */
+.refs{ background: linear-gradient(180deg,#121212,#0f0f0f); border-block:1px solid rgba(255,255,255,.05); padding:24px 0; text-align:center; }
+.refs-inner{ display:flex; flex-direction:column; gap:20px; align-items:center; }
+.refs-logos{ display:flex; gap:26px; flex-wrap:wrap; justify-content:center; }
+.ref-logo{ height:34px; opacity:.85; transition: opacity .25s, transform .25s; }
+.ref-logo img{ height:100%; width:auto; object-fit:contain; }
+.ref-logo:hover{ opacity:1; transform: translateY(-2px); }
 
-/* ---------- References logos ---------- */
-.about-page .refs {
-  background: linear-gradient(180deg,#121212,#0f0f0f);
-  border-block: 1px solid rgba(255,255,255,.05);
-  padding: 24px 0;
-  text-align: center;
-}
-.about-page .refs-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-.about-page .refs-logos {
-  display: flex;
-  gap: 28px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.about-page .ref-logo {
-  flex: 0 0 auto;
-  height: 34px;
-  opacity: .85;
-  transition: opacity .25s, transform .25s;
-}
-.about-page .ref-logo img {
-  height: 100%;
-  width: auto;
-  object-fit: contain;
-}
-.about-page .ref-logo:hover {
-  opacity: 1;
-  transform: translateY(-2px);
-}
+/* CTA */
+.contact{ display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
+.contact h2{ margin:0 0 6px 0; font-size: clamp(24px,3vw,30px); }
+.contact p{ max-width:520px; opacity:.85; }
+.card-actions{ display:flex; gap:10px; }
 
-/* ---------- CTA (Contact) ---------- */
-.about-page .contact {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 20px;
+/* Responsive */
+@media (max-width: 980px){
+  .hero-wrap{ grid-template-columns: 1fr; }
+  .hero-media{ order:2; height: clamp(260px, 44vh, 520px); }
 }
-.about-page .contact h2 {
-  font-size: clamp(24px,3vw,30px);
-  font-family: "Playfair Display", serif;
-  margin-bottom: 6px;
+@media (max-width: 820px){
+  .cap-grid{ grid-template-columns: repeat(2,1fr); }
 }
-.about-page .contact p {
-  max-width: 500px;
-  opacity: .8;
-}
-.about-page .card-actions {
-  display: flex;
-  gap: 10px;
-}
-
-/* ---------- Responsive ---------- */
-@media (max-width: 780px) {
-  .about-page .grid {
-    grid-template-columns: 1fr 1fr !important;
-  }
-}
-@media (max-width: 560px) {
-  .about-page .grid {
-    grid-template-columns: 1fr !important;
-  }
-  .about-page .contact {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .about-page .refs-logos {
-    gap: 18px;
-  }
+@media (max-width: 540px){
+  .facts-grid{ grid-template-columns: 1fr; }
+  .cap-grid{ grid-template-columns: 1fr; }
 }
