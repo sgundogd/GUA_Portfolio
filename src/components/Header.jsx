@@ -126,7 +126,7 @@ export default function Header() {
               <NavLink to="/projects/business" role="menuitem" onClick={() => setProjOpen(false)}>Business</NavLink>
               <NavLink to="/projects/home" role="menuitem" onClick={() => setProjOpen(false)}>Home</NavLink>
               <NavLink to="/projects/cafe-restaurant" role="menuitem" onClick={() => setProjOpen(false)}>Cafe / Restaurant</NavLink>
-              <NavLink to="/projects/vision" role="menuitem" onClick={() => setProjOpen(false)}>GUA Vision</NavLink>
+              <NavLink to="projects/vision/desert-brass-palette" role="menuitem" onClick={() => setProjOpen(false)}>GUA Vision</NavLink>
             </div>
           </div>
 
